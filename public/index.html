@@ -1,0 +1,1779 @@
+<!--
+  Unlockt (v6.7) - Instagram Saved Vault & Smart Media Studio
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Developed by: Mahmoud Madi (Digital Marketing & IT Specialist)
+  Organizations: Premier Tech (For Integrated Solutions) & VOXO AI (AI & Media Agency)
+  Purpose: 100% Private, Local-First Instagram Saved Content Explorer & Media Studio
+  License: MIT License (Open Source)
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mahmoud Madi (Digital Marketing & IT Specialist | Premier Tech & VOXO AI)">
+    <meta name="description"
+        content="Unlockt — Open-source, 100% private, local-first Instagram saved posts, reels, carousels, and audio bulk extractor, smart media manager, and AI search vault. Developed by Mahmoud Madi | Powered by Premier Tech & VOXO AI.">
+    <meta name="keywords"
+        content="instagram saved vault, bulk scrape instagram saved, instagram reels downloader, instagram carousel collage maker, download instagram saved posts bulk, instagram ai search, local first instagram exporter, mahmoud madi, premier tech, voxo ai">
+    <meta property="og:title" content="Unlockt | Your Instagram saves — extracted, organized, yours.">
+    <meta property="og:description" content="Local-first Instagram Saved Vault, AI Semantic Search, Carousel Studio & Full HD Reels Video Inspector. Developed by Mahmoud Madi | Premier Tech & VOXO AI.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="unlockt-logo.png">
+    <title>Unlockt | Your Instagram saves — extracted, organized, yours.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="unlockt-logo.png">
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <div class="instagram-gradient-ring"></div>
+                <svg class="vault-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8 8V5a4 4 0 0 1 8 0v1"></path>
+                    <path d="M6 9h12v12l-6-3.5L6 21V9z"></path>
+                </svg>
+            </div>
+            <h1 class="loading-title">Unlockt</h1>
+            <p class="loading-subtitle">Your Instagram saves — extracted, organized, yours.</p>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connect Extension Screen -->
+    <div id="connectScreen" class="connect-screen hidden">
+        <div class="connect-container">
+            <div class="connect-content">
+                <div class="connect-logo">
+                    <div class="logo-gradient"></div>
+                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M8 8V5a4 4 0 0 1 8 0v1"></path>
+                        <path d="M6 9h12v12l-6-3.5L6 21V9z"></path>
+                    </svg>
+                </div>
+                <h1>Unlockt</h1>
+                <p class="connect-subtitle">Your Instagram saves — extracted, organized, yours.</p>
+
+                <div class="connect-status" id="connectStatus">
+                    <div class="status-checking">
+                        <div class="spinner"></div>
+                        <span>Checking connection...</span>
+                    </div>
+                </div>
+
+                <!-- Not Connected State -->
+                <div id="notConnectedState" class="connect-state hidden">
+                    <div class="info-card">
+                        <div class="info-icon">📦</div>
+                        <h3>No Content Synced Yet</h3>
+                        <p>Use the browser extension to sync your Instagram saved content</p>
+                    </div>
+
+                    <div class="steps-container">
+                        <h3>Getting Started</h3>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Install the Extension</h4>
+                                <p>Load the extension folder in Chrome/Edge developer mode</p>
+                                <a href="#" class="step-btn" onclick="showExtensionInstructions()">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                    </svg>
+                                    View Instructions
+                                </a>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Log into Instagram</h4>
+                                <p>Open Instagram and make sure you're logged in</p>
+                                <a href="https://www.instagram.com" target="_blank" class="step-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <circle cx="12" cy="12" r="4"></circle>
+                                    </svg>
+                                    Open Instagram
+                                </a>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Sync Your Saved Content</h4>
+                                <p>Click the extension icon and press "Sync Saved Content"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="refresh-btn" onclick="checkConnection()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 4 23 10 17 10"></polyline>
+                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                        </svg>
+                        Check Again
+                    </button>
+                </div>
+
+                <!-- Connected State - Will auto-redirect to main app -->
+                <div id="connectedState" class="connect-state hidden">
+                    <div class="success-animation">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Content Synced!</h3>
+                    <p id="syncedCount">Loading your vault...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Extension Instructions Modal -->
+    <div id="instructionsModal" class="modal hidden">
+        <div class="modal-backdrop" onclick="hideExtensionInstructions()"></div>
+        <div class="modal-content instructions-modal">
+            <button class="modal-close" onclick="hideExtensionInstructions()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <h2>📦 Install the Browser Extension</h2>
+
+            <div class="instructions-content">
+                <div class="instruction-step">
+                    <div class="step-num">1</div>
+                    <div class="step-detail">
+                        <h4>Open Chrome/Edge Extensions</h4>
+                        <p>Go to <code>chrome://extensions</code> or <code>edge://extensions</code></p>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <div class="step-num">2</div>
+                    <div class="step-detail">
+                        <h4>Enable Developer Mode</h4>
+                        <p>Toggle "Developer mode" in the top right corner</p>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <div class="step-num">3</div>
+                    <div class="step-detail">
+                        <h4>Load Unpacked Extension</h4>
+                        <p>Click "Load unpacked" and select the <code>extension</code> folder:</p>
+                        <code class="folder-path">instagram-saved-vault/extension</code>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <div class="step-num">4</div>
+                    <div class="step-detail">
+                        <h4>Pin the Extension</h4>
+                        <p>Click the puzzle icon and pin "Unlockt"</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="instructions-note">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <span>The extension only works when you're logged into Instagram</span>
+            </div>
+
+            <div style="margin-top: 24px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 11px; color: var(--text-secondary); text-align: center; line-height: 1.5;">
+                <div>Developed by <strong style="color: var(--text-primary);">Mahmoud Madi</strong> • Digital Marketing &amp; IT Specialist</div>
+                <div style="font-size: 10px; color: #fa7e1e; margin-top: 2px;">Premier Tech | For Integrated Solutions &amp; VOXO | AI &amp; Media Agency</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="mainApp" class="main-app hidden">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-profile">
+                    <img id="userAvatar" src="" alt="User Avatar" class="user-avatar">
+                    <div class="user-info">
+                        <div class="user-name-wrapper">
+                            <span id="userName" class="user-name"></span>
+                        </div>
+                        <span class="user-status online">● Synced</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item active" data-view="dashboard">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                        <span>Dashboard</span>
+                    </li>
+                    <li class="nav-item" data-view="browse">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="3" y1="9" x2="21" y2="9"></line>
+                            <line x1="9" y1="21" x2="9" y2="9"></line>
+                        </svg>
+                        <span>Browse Saved</span>
+                    </li>
+                    <li class="nav-item" data-view="search">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <span>AI Search</span>
+                        <span class="nav-badge">AI</span>
+                    </li>
+                    <li class="nav-item" data-view="collections">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                            </path>
+                        </svg>
+                        <span>Collections</span>
+                    </li>
+                    <li class="nav-item" data-view="downloads">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        <span>Downloads</span>
+                        <span id="downloadCount" class="nav-badge count hidden">0</span>
+                    </li>
+                    <li class="nav-item" data-view="analytics">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                        </svg>
+                        <span>Analytics</span>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-collections">
+                <h3 class="section-title">
+                    <span>Smart Collections</span>
+                </h3>
+                <ul id="collectionsList" class="collections-list">
+                    <!-- Collections will be loaded dynamically -->
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="sync-options">
+                    <button id="syncNewBtn" class="sync-btn sync-new" title="Only sync new content">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <polyline points="19 12 12 19 5 12"></polyline>
+                        </svg>
+                        <span>Sync New</span>
+                    </button>
+                    <button id="fullSyncBtn" class="sync-btn sync-full" title="Sync everything from beginning">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 4 23 10 17 10"></polyline>
+                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                        </svg>
+                        <span>Full Sync</span>
+                    </button>
+                    <button id="continueSyncBtn" class="sync-btn sync-continue"
+                        title="Continue from where you left off">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        <span>Continue</span>
+                    </button>
+                </div>
+                <div class="backup-buttons">
+                    <button id="exportBtn" class="backup-btn" title="Export backup">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        <span>Export</span>
+                    </button>
+                    <button id="importBtn" class="backup-btn" title="Import backup">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        <span>Import</span>
+                    </button>
+                    <input type="file" id="importFileInput" accept=".json" style="display: none;">
+                </div>
+                <button id="hardRefreshBtn" class="hard-refresh-sidebar-btn" title="Hard refresh dashboard (equivalent to Ctrl + F5)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23 4 23 10 17 10"></polyline>
+                        <polyline points="1 20 1 14 7 14"></polyline>
+                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                    </svg>
+                    <span>Hard Refresh</span>
+                </button>
+                <div class="last-sync-info" id="lastSyncInfo">
+                    Last synced: <span id="lastSyncTime">Never</span>
+                </div>
+                <div class="sidebar-credits" style="margin-top: 6px; padding: 6px 4px 2px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); font-size: 9.5px; color: #888; line-height: 1.3;">
+                    <div style="font-weight: 600; color: #ccc;">By Mahmoud Madi</div>
+                    <div style="font-size: 8.5px; color: #fa7e1e; opacity: 0.95; margin-top: 1px;">Premier Tech &amp; VOXO AI</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Hard Refresh Confirmation Modal -->
+        <div id="hardRefreshModal" class="confirm-modal-overlay hidden">
+            <div class="confirm-modal-box">
+                <div class="confirm-modal-icon">🔄</div>
+                <h3 class="confirm-modal-title">Hard Refresh Dashboard?</h3>
+                <p class="confirm-modal-text">
+                    This will perform a full reload of the dashboard assets and clear temporary browser cache (like <b>Ctrl + F5</b>).<br><br>
+                    <span class="confirm-modal-safe">✓ All your saved content, collections, and vault data remain 100% safe.</span>
+                </p>
+                <div class="confirm-modal-actions">
+                    <button id="cancelHardRefreshBtn" class="confirm-btn secondary">Cancel</button>
+                    <button id="confirmHardRefreshBtn" class="confirm-btn primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <polyline points="23 4 23 10 17 10"></polyline>
+                            <polyline points="1 20 1 14 7 14"></polyline>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                        </svg>
+                        Hard Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clear Download History Confirmation Modal -->
+        <div id="clearHistoryModal" class="confirm-modal-overlay hidden">
+            <div class="confirm-modal-box">
+                <div class="confirm-modal-icon" style="background: rgba(255, 69, 58, 0.15); border: 1px solid rgba(255, 69, 58, 0.3); color: #ff453a;">🗑️</div>
+                <h3 class="confirm-modal-title">Clear Download History?</h3>
+                <p class="confirm-modal-text">
+                    <span style="color: #ff98a2; font-weight: 600; display: block; margin-bottom: 8px;">⚠️ Warning: This action cannot be undone.</span>
+                    This will permanently clear your export activity log and download history records.<br><br>
+                    <span class="confirm-modal-safe">✓ Your saved Instagram posts, reels, collections, and vault media remain 100% safe.</span>
+                </p>
+                <div class="confirm-modal-actions">
+                    <button id="cancelClearHistoryBtn" class="confirm-btn secondary" onclick="closeClearHistoryModal()">Cancel</button>
+                    <button id="confirmClearHistoryBtn" class="confirm-btn danger" onclick="confirmExecuteClearHistory()" style="background: linear-gradient(135deg, #ff453a, #e1306c); color: #fff; border: none;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                        Clear History Now
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sync Confirmation & Safety Disclaimer Modal (Dashboard) -->
+        <div id="syncConfirmModal" class="confirm-modal-overlay hidden">
+            <div class="confirm-modal-box sync-disclaimer-box" style="max-width: 520px; text-align: left;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div id="syncModalIcon" class="confirm-modal-icon" style="margin: 0; width: 44px; height: 44px; font-size: 22px; flex-shrink: 0;">⚡</div>
+                        <div>
+                            <h3 id="syncModalTitle" class="confirm-modal-title" style="margin: 0; font-size: 17px; text-align: left;">Sync New Content Only</h3>
+                            <span id="syncModalBadge" style="display: inline-block; font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 20px; background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); margin-top: 3px;">RECOMMENDED • FAST &amp; SAFE</span>
+                        </div>
+                    </div>
+                    <button class="modal-close" onclick="closeSyncConfirmModal()" style="font-size: 22px; background: none; border: none; color: #888; cursor: pointer; padding: 4px 8px;">&times;</button>
+                </div>
+
+                <p id="syncModalDesc" class="confirm-modal-text" style="text-align: left; margin-bottom: 12px; font-size: 13px; line-height: 1.5; color: var(--text-secondary);">
+                    Checks and extracts items saved to your Instagram account since your last sync session.
+                </p>
+
+                <!-- Disclaimer & Release of Liability Box -->
+                <div style="background: rgba(255, 69, 58, 0.08); border: 1px solid rgba(255, 69, 58, 0.28); border-radius: 8px; padding: 12px 14px; margin-bottom: 12px;">
+                    <div style="display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 12px; color: #ff6961; margin-bottom: 6px;">
+                        <span>⚠️</span> Disclaimer &amp; Full Release of Liability
+                    </div>
+                    <ul style="font-size: 11.5px; color: #e0e0e0; line-height: 1.55; margin: 0; padding-left: 16px;">
+                        <li style="margin-bottom: 5px;"><b>Zero Liability &amp; Use at Your Own Risk:</b> By initiating this sync, you acknowledge and agree that Unlockt is provided "as is". The developers and affiliates (Mahmoud Madi, Premier Tech, VOXO) assume <b>NO responsibility or liability whatsoever</b> for any account restrictions, temporary action blocks, rate limits, bans, or data changes imposed by Instagram/Meta. You use this tool entirely at your own discretion.</li>
+                        <li style="margin-bottom: 5px;"><b>Responsible &amp; Moderate Use:</b> Instagram enforces strict automated request policies. Do NOT spam or run continuous mass syncs; allow resting intervals between large operations.</li>
+                        <li style="margin-bottom: 5px;"><b>100% Local &amp; Independent:</b> Unlockt is an open-source client-side tool operating strictly on your local machine. It is not affiliated with or endorsed by Instagram or Meta. No user credentials or Instagram data are ever sent to any external server.</li>
+                        <li><b>Expiring CDN Media Links:</b> Instagram CDN media links rotate and expire periodically. Use local downloads for permanent archival.</li>
+                    </ul>
+                </div>
+
+                <div class="sync-safety-pills" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;">
+                    <span style="font-size: 11px; padding: 3px 8px; border-radius: 4px; background: rgba(255,255,255,0.06); color: #aaa; border: 1px solid rgba(255,255,255,0.1);">⏱️ Anti-detection delay active</span>
+                    <span style="font-size: 11px; padding: 3px 8px; border-radius: 4px; background: rgba(255,255,255,0.06); color: #aaa; border: 1px solid rgba(255,255,255,0.1);">🔒 Client-side execution</span>
+                    <span style="font-size: 11px; padding: 3px 8px; border-radius: 4px; background: rgba(255,255,255,0.06); color: #aaa; border: 1px solid rgba(255,255,255,0.1);">📱 1 active tab recommended</span>
+                </div>
+
+                <div class="confirm-modal-actions" style="justify-content: flex-end; gap: 10px;">
+                    <button id="cancelSyncConfirmBtn" class="confirm-btn secondary" onclick="closeSyncConfirmModal()">Cancel</button>
+                    <button id="proceedSyncConfirmBtn" class="confirm-btn primary" style="background: linear-gradient(135deg, #833AB4, #E1306C, #F77737); color: white; border: none; font-weight: 600;">
+                        <span id="proceedSyncBtnText">I Understand, Proceed with Sync</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Single Download Record Confirmation Modal -->
+        <div id="deleteDownloadRecordModal" class="confirm-modal-overlay hidden">
+            <div class="confirm-modal-box">
+                <div class="confirm-modal-icon" style="background: rgba(255, 69, 58, 0.15); border: 1px solid rgba(255, 69, 58, 0.3); color: #ff453a;">🗑️</div>
+                <h3 class="confirm-modal-title">Delete Download Record?</h3>
+                <p class="confirm-modal-text">
+                    <span style="color: #ff98a2; font-weight: 600; display: block; margin-bottom: 8px;">⚠️ This action will remove this download entry from history.</span>
+                    <strong id="deleteTargetDownloadFilename" style="color: var(--text-primary); word-break: break-all; display: block; margin-bottom: 8px; font-size: 13px;">package.zip</strong>
+                    <span class="confirm-modal-safe">✓ Your saved Instagram posts, reels, and vault files will NOT be deleted.</span>
+                </p>
+                <div class="confirm-modal-actions">
+                    <button id="cancelDeleteRecordBtn" class="confirm-btn secondary" onclick="closeDeleteDownloadModal()">Cancel</button>
+                    <button id="confirmDeleteRecordBtn" class="confirm-btn danger" onclick="confirmExecuteDeleteDownloadRecord()" style="background: linear-gradient(135deg, #ff453a, #e1306c); color: #fff; border: none;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                        Delete Record
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button id="sidebarToggleBtn" class="sidebar-toggle-btn" title="Toggle Sidebar (⌘B / Ctrl+B)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="9" y1="3" x2="9" y2="21"></line>
+                        </svg>
+                    </button>
+                    <div class="search-container">
+                        <div class="global-search">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            <input type="text" id="globalSearch" placeholder="Search your saved content with AI...">
+                            <div class="search-shortcuts">
+                                <kbd>⌘</kbd><kbd>K</kbd>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="top-bar-actions">
+                    <button id="systemDiagnosticsBtn" class="diagnostics-top-btn" title="System Diagnostics, Health Test & Error Logs" onclick="openDiagnosticsModal()">
+                        <span class="diag-status-dot pulse"></span>
+                        <span class="diag-btn-text">Diagnostics &amp; Logs</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Views Container -->
+            <div class="views-container">
+                <!-- Dashboard View -->
+                <section id="dashboardView" class="view active">
+                    <div class="view-header">
+                        <h1>Welcome back, <span id="dashboardUsername"></span>!</h1>
+                        <p class="view-subtitle">Here's an overview of your saved content</p>
+                    </div>
+
+                    <div class="dashboard-stats-wrapper">
+                        <div class="stats-grid">
+                            <div class="stat-card gradient-purple clickable-stat" id="statCardPosts" onclick="handleDashboardStatClick('posts')" title="Click for details & actions">
+                                <div class="stat-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    </svg>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="stat-value" id="totalPosts">0</span>
+                                    <span class="stat-label">Posts</span>
+                                </div>
+                            </div>
+                            <div class="stat-card gradient-pink clickable-stat" id="statCardReels" onclick="handleDashboardStatClick('reels')" title="Click for details & actions">
+                                <div class="stat-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                                    </svg>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="stat-value" id="totalReels">0</span>
+                                    <span class="stat-label">Reels</span>
+                                </div>
+                            </div>
+                            <div class="stat-card gradient-orange clickable-stat" id="statCardAudio" onclick="handleDashboardStatClick('audio')" title="Click for details & actions">
+                                <div class="stat-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 18V5l12-2v13"></path>
+                                        <circle cx="6" cy="18" r="3"></circle>
+                                        <circle cx="18" cy="16" r="3"></circle>
+                                    </svg>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="stat-value" id="totalAudio">0</span>
+                                    <span class="stat-label">Audio</span>
+                                </div>
+                            </div>
+                            <div class="stat-card gradient-blue clickable-stat" id="statCardDownloads" onclick="handleDashboardStatClick('downloads')" title="Click for details & actions">
+                                <div class="stat-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="7 10 12 15 17 10"></polyline>
+                                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                                    </svg>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="stat-value" id="totalDownloads">0</span>
+                                    <span class="stat-label">Downloads</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chat Message / Smart Assistant Callout Box in the space next to the 4 cards -->
+                        <div id="statChatBubble" class="stat-chat-bubble hidden">
+                            <div class="chat-bubble-avatar">
+                                <span id="chatBubbleEmoji">🤖</span>
+                            </div>
+                            <div class="chat-bubble-content">
+                                <div class="chat-bubble-header">
+                                    <div class="chat-bubble-title-wrap">
+                                        <span class="chat-bubble-sender" id="chatBubbleSender">Vault Assistant</span>
+                                        <span class="chat-bubble-badge" id="chatBubbleBadge">Action</span>
+                                    </div>
+                                    <button class="chat-bubble-close" onclick="closeStatChatBubble()" title="Dismiss">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    </button>
+                                </div>
+                                <p class="chat-bubble-msg" id="chatBubbleMsg">Click on any category to view options.</p>
+                                <div class="chat-bubble-actions" id="chatBubbleActions">
+                                    <!-- Dynamic Action Buttons -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-content">
+                        <div class="recent-section">
+                            <div class="section-header">
+                                <h2>Recently Saved</h2>
+                                <button class="see-all-btn" onclick="switchView('browse')">See All →</button>
+                            </div>
+                            <div id="recentItems" class="content-grid compact">
+                                <!-- Recent items will be loaded here -->
+                            </div>
+                        </div>
+
+                        <div class="quick-actions">
+                            <h2>Quick Actions</h2>
+                            <div class="actions-grid">
+                                <button class="quick-action-btn" onclick="switchView('search')">
+                                    <div class="action-icon gradient-purple">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="11" cy="11" r="8"></circle>
+                                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                        </svg>
+                                    </div>
+                                    <span>AI Search</span>
+                                </button>
+                                <button class="quick-action-btn" onclick="enableSelectMode()">
+                                    <div class="action-icon gradient-pink">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="7 10 12 15 17 10"></polyline>
+                                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                                        </svg>
+                                    </div>
+                                    <span>Batch Download</span>
+                                </button>
+                                <button class="quick-action-btn" onclick="switchView('analytics')">
+                                    <div class="action-icon gradient-orange">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                                        </svg>
+                                    </div>
+                                    <span>View Analytics</span>
+                                </button>
+                                <button class="quick-action-btn" onclick="switchView('collections')">
+                                    <div class="action-icon gradient-blue">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path
+                                                d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <span>Collections</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Browse View -->
+                <section id="browseView" class="view">
+                    <div class="view-header">
+                        <h1>Browse Saved Content</h1>
+                        <p class="view-subtitle">All your saved posts, reels, and audio in one place</p>
+                    </div>
+
+                    <div class="browse-controls">
+                        <div class="filter-tabs">
+                            <button class="filter-tab active" data-type="all">All</button>
+                            <button class="filter-tab" data-type="post">Posts</button>
+                            <button class="filter-tab" data-type="reel">Reels</button>
+                            <button class="filter-tab" data-type="audio">Audio</button>
+                        </div>
+                        <div class="browse-actions">
+                            <input type="text" id="filterUsername" class="filter-input"
+                                placeholder="Filter by @username...">
+                            <select id="sortSelect" class="select-styled">
+                                <option value="date">Most Recent</option>
+                                <option value="date-asc">Oldest First</option>
+                                <option value="likes">Most Liked</option>
+                                <option value="comments">Most Comments</option>
+                                <option value="views">Most Views</option>
+                                <option value="username">By Username</option>
+                            </select>
+                            <button id="selectModeBtn" class="select-mode-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="9 11 12 14 22 4"></polyline>
+                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                </svg>
+                                <span>Select</span>
+                            </button>
+                        </div>
+                        <div class="date-filter-row">
+                            <div class="date-filter-group">
+                                <label for="dateFrom">From:</label>
+                                <input type="date" id="dateFrom" class="date-input">
+                            </div>
+                            <div class="date-filter-group">
+                                <label for="dateTo">To:</label>
+                                <input type="date" id="dateTo" class="date-input">
+                            </div>
+                            <button id="applyDateFilter" class="apply-date-btn" title="Apply date filter">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"
+                                    height="16">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Apply
+                            </button>
+                            <button id="clearDateFilter" class="clear-date-btn" title="Clear date filter">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"
+                                    height="16">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                                Clear
+                            </button>
+                            <button id="resetAllFiltersBtn" class="reset-all-btn" onclick="resetAllFilters()" title="Reset all filters and show all recent content">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                                    <path d="M3 3v5h5"></path>
+                                </svg>
+                                Reset & Show All
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="activeFilterBanner" class="active-filter-banner hidden">
+                        <div class="active-filter-info">
+                            <span class="active-filter-label">Active Filter:</span>
+                            <span id="activeFilterText" class="active-filter-tag">All</span>
+                        </div>
+                        <button class="reset-filter-chip" onclick="resetAllFilters()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                            Reset & Show All Recent
+                        </button>
+                    </div>
+
+                    <div id="selectionBar" class="selection-bar hidden">
+                        <span id="selectedCount">0 selected</span>
+                        <div class="bulk-select-controls">
+                            <input type="number" id="quickSelectCount" class="quick-select-input" value="50" min="1"
+                                max="500">
+                            <button class="quick-select-btn" id="quickSelectBtn">
+                                Quick Select
+                            </button>
+                            <button class="quick-select-btn" onclick="selectAllVisible()">
+                                Select All
+                            </button>
+                        </div>
+                        <div class="selection-actions">
+                            <button class="selection-btn" onclick="downloadSelected()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Download
+                            </button>
+                            <button class="selection-btn" onclick="exportForYtDlp()"
+                                title="Export reels for yt-dlp download">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                                Export yt-dlp
+                            </button>
+                            <button class="selection-btn cancel" onclick="clearSelection()">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="browseGrid" class="content-grid">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+
+                    <div id="loadMore" class="load-more">
+                        <div class="load-more-controls">
+                            <label for="itemsPerPageSelect" class="items-per-page-label">Items per load:</label>
+                            <select id="itemsPerPageSelect" class="items-per-page-select"
+                                onchange="changeItemsPerPage(this.value)">
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="200" selected>200</option>
+                                <option value="500">500</option>
+                                <option value="1000">1000</option>
+                                <option value="2000">2000</option>
+                            </select>
+                        </div>
+                        <button id="loadMoreBtn" class="load-more-btn">
+                            <span>Load More</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <p id="paginationInfo" class="pagination-info"></p>
+                    </div>
+                </section>
+
+                <!-- AI Search View -->
+                <section id="searchView" class="view">
+                    <div class="view-header">
+                        <h1>AI-Powered Search</h1>
+                        <p class="view-subtitle">Find anything in your saved content using intelligent search</p>
+                    </div>
+
+                    <div class="search-panel">
+                        <div class="ai-search-box">
+                            <div class="search-input-container">
+                                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                                <input type="text" id="aiSearchInput" placeholder="Describe what you're looking for...">
+                                <button id="aiSearchBtn" class="ai-search-btn">
+                                    <span>Search</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="search-type-selector">
+                                <label class="search-type active" data-type="semantic">
+                                    <input type="radio" name="searchType" value="semantic" checked>
+                                    <span class="type-icon">🧠</span>
+                                    <span class="type-label">Semantic</span>
+                                </label>
+                                <label class="search-type" data-type="text">
+                                    <input type="radio" name="searchType" value="text">
+                                    <span class="type-icon">📝</span>
+                                    <span class="type-label">Text/Caption</span>
+                                </label>
+                                <label class="search-type" data-type="image">
+                                    <input type="radio" name="searchType" value="image">
+                                    <span class="type-icon">🖼️</span>
+                                    <span class="type-label">Image</span>
+                                </label>
+                                <label class="search-type" data-type="audio">
+                                    <input type="radio" name="searchType" value="audio">
+                                    <span class="type-icon">🎵</span>
+                                    <span class="type-label">Audio</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="search-suggestions">
+                            <span class="suggestions-label">Try searching for:</span>
+                            <div class="suggestion-chips">
+                                <button class="suggestion-chip" onclick="searchSuggestion('sunset beach vacation')">🌅
+                                    sunset beach</button>
+                                <button class="suggestion-chip" onclick="searchSuggestion('food recipes cooking')">🍕
+                                    food recipes</button>
+                                <button class="suggestion-chip" onclick="searchSuggestion('workout fitness gym')">💪
+                                    workout</button>
+                                <button class="suggestion-chip" onclick="searchSuggestion('music trending viral')">🎵
+                                    trending music</button>
+                                <button class="suggestion-chip" onclick="searchSuggestion('travel adventure')">✈️
+                                    travel</button>
+                                <button class="suggestion-chip" onclick="searchSuggestion('funny memes comedy')">😂
+                                    memes</button>
+                                <button class="suggestion-chip" onclick="searchSuggestion('fashion outfit style')">👗
+                                    fashion</button>
+                                <button class="suggestion-chip" onclick="searchSuggestion('cute pets cats dogs')">🐶
+                                    pets</button>
+                                <button class="suggestion-chip" onclick="searchSuggestion('art drawing painting')">🎨
+                                    art</button>
+                                <button class="suggestion-chip"
+                                    onclick="searchSuggestion('quotes motivation inspiration')">💬 quotes</button>
+                                <button class="suggestion-chip" onclick="searchSuggestion('technology gadgets')">📱
+                                    tech</button>
+                                <button class="suggestion-chip"
+                                    onclick="searchSuggestion('nature landscape mountains')">🏔️ nature</button>
+                                <button class="suggestion-chip" onclick="searchSuggestion('dance choreography')">💃
+                                    dance</button>
+                                <button class="suggestion-chip" onclick="searchSuggestion('diy tutorial howto')">🔧
+                                    DIY</button>
+                            </div>
+                        </div>
+
+                        <!-- AI Filters -->
+                        <div class="ai-search-filters">
+                            <span class="filters-label">Filter by:</span>
+                            <div class="filter-chips">
+                                <button class="filter-chip" data-filter="type:reel"
+                                    onclick="addSearchFilter('type:reel')">🎬 Reels Only</button>
+                                <button class="filter-chip" data-filter="type:post"
+                                    onclick="addSearchFilter('type:post')">📷 Posts Only</button>
+                                <button class="filter-chip" data-filter="has:audio"
+                                    onclick="addSearchFilter('has:audio')">🎵 With Audio</button>
+                                <button class="filter-chip" data-filter="high:likes"
+                                    onclick="addSearchFilter('high:likes')">❤️ High Likes</button>
+                                <button class="filter-chip" data-filter="high:views"
+                                    onclick="addSearchFilter('high:views')">👀 High Views</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="searchResults" class="search-results">
+                        <div class="search-empty">
+                            <div class="empty-illustration">
+                                <svg viewBox="0 0 200 200" fill="none">
+                                    <circle cx="100" cy="100" r="80" stroke="url(#gradient)" stroke-width="2"
+                                        opacity="0.3" />
+                                    <circle cx="100" cy="100" r="50" stroke="url(#gradient)" stroke-width="2"
+                                        opacity="0.5" />
+                                    <circle cx="100" cy="100" r="20" fill="url(#gradient)" opacity="0.7" />
+                                    <defs>
+                                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" style="stop-color:#833AB4" />
+                                            <stop offset="50%" style="stop-color:#E1306C" />
+                                            <stop offset="100%" style="stop-color:#F77737" />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                            </div>
+                            <h3>Ready to search</h3>
+                            <p>Use AI to find exactly what you're looking for in your saved content</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Collections View -->
+                <section id="collectionsView" class="view">
+                    <div class="view-header">
+                        <h1>Collections</h1>
+                        <p class="view-subtitle">Smart collections auto-generated from your saved content</p>
+                    </div>
+
+                    <div id="collectionsGrid" class="collections-grid">
+                        <!-- Collections will be loaded dynamically -->
+                    </div>
+                </section>
+
+                <!-- Downloads View -->
+                <section id="downloadsView" class="view">
+                    <div class="view-header">
+                        <div class="dm-header-row">
+                            <div>
+                                <h1>📦 Download Manager</h1>
+                                <p class="view-subtitle">Track, monitor, and export your saved media archives</p>
+                            </div>
+                            <div class="dm-header-actions">
+                                <button class="header-action-btn secondary" onclick="clearDownloadHistory()">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                    Clear History
+                                </button>
+                                <button class="header-action-btn primary" onclick="openDownloadModal()">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                    Download Vault
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats Grid -->
+                    <div class="dm-stats-grid">
+                        <div class="dm-stat-card">
+                            <div class="dm-stat-icon-wrap" style="background: rgba(79, 70, 229, 0.15); color: #818cf8;">
+                                📦
+                            </div>
+                            <div class="dm-stat-info">
+                                <span class="dm-stat-num" id="dmTotalPackages">0</span>
+                                <span class="dm-stat-lbl">Archives Generated</span>
+                            </div>
+                        </div>
+                        <div class="dm-stat-card">
+                            <div class="dm-stat-icon-wrap" style="background: rgba(225, 48, 108, 0.15); color: #f472b6;">
+                                🎬
+                            </div>
+                            <div class="dm-stat-info">
+                                <span class="dm-stat-num" id="dmTotalReels">0</span>
+                                <span class="dm-stat-lbl">Reels / Videos</span>
+                            </div>
+                        </div>
+                        <div class="dm-stat-card">
+                            <div class="dm-stat-icon-wrap" style="background: rgba(251, 146, 60, 0.15); color: #fb923c;">
+                                📸
+                            </div>
+                            <div class="dm-stat-info">
+                                <span class="dm-stat-num" id="dmTotalSlides">0</span>
+                                <span class="dm-stat-lbl">Photos &amp; Slides</span>
+                            </div>
+                        </div>
+                        <div class="dm-stat-card">
+                            <div class="dm-stat-icon-wrap" style="background: rgba(76, 217, 100, 0.15); color: #4cd964;">
+                                💾
+                            </div>
+                            <div class="dm-stat-info">
+                                <span class="dm-stat-num" id="dmTotalStorage">0 MB</span>
+                                <span class="dm-stat-lbl">Est. Storage Saved</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Toolkit Card -->
+                    <div class="dm-tools-card">
+                        <div class="dm-tools-header">
+                            <h3>⚡ Quick Export Tools</h3>
+                            <p>One-click batch operations for your library</p>
+                        </div>
+                        <div class="dm-tools-grid">
+                            <div class="dm-tool-item" onclick="openDownloadModal()">
+                                <div class="tool-icon">📦</div>
+                                <div class="tool-desc">
+                                    <strong>Master Vault ZIP Archive</strong>
+                                    <small>Package all photos, reels &amp; carousels</small>
+                                </div>
+                                <button class="dm-tool-btn">Start</button>
+                            </div>
+                            <div class="dm-tool-item" onclick="openYtdlpModal()">
+                                <div class="tool-icon">🎬</div>
+                                <div class="tool-desc">
+                                    <strong>yt-dlp High-Res Reels</strong>
+                                    <small>Generate batch scripts for 1080p videos</small>
+                                </div>
+                                <button class="dm-tool-btn">Launch</button>
+                            </div>
+                            <div class="dm-tool-item" onclick="exportSession()">
+                                <div class="tool-icon">💾</div>
+                                <div class="tool-desc">
+                                    <strong>JSON Data &amp; Backup</strong>
+                                    <small>Export full database with metadata</small>
+                                </div>
+                                <button class="dm-tool-btn">Export</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Downloads Filtering & List Section -->
+                    <div class="dm-list-section">
+                        <div class="dm-controls-bar">
+                            <div class="dm-tabs">
+                                <button class="dm-tab active" data-filter="all" onclick="filterDownloads('all')">All (<span id="dmTabAllCount">0</span>)</button>
+                                <button class="dm-tab" data-filter="zip" onclick="filterDownloads('zip')">📦 ZIP Packages (<span id="dmTabZipCount">0</span>)</button>
+                                <button class="dm-tab" data-filter="reel" onclick="filterDownloads('reel')">🎬 Reels (<span id="dmTabReelCount">0</span>)</button>
+                                <button class="dm-tab" data-filter="post" onclick="filterDownloads('post')">📷 Posts (<span id="dmTabPostCount">0</span>)</button>
+                            </div>
+                            <div class="dm-search-wrap">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                <input type="text" id="dmSearchInput" placeholder="Search download history..." oninput="onSearchDownloads(this.value)">
+                            </div>
+                        </div>
+
+                        <div id="downloadsList" class="downloads-list">
+                            <div class="downloads-empty">
+                                <div class="empty-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="7 10 12 15 17 10"></polyline>
+                                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                                    </svg>
+                                </div>
+                                <h3>No downloads yet</h3>
+                                <p>Select content from Browse or Search to download</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Analytics View -->
+                <section id="analyticsView" class="view">
+                    <div class="view-header">
+                        <h1>Analytics & Insights</h1>
+                        <p class="view-subtitle">Understand your saved content patterns with AI-powered insights</p>
+                    </div>
+
+                    <div class="analytics-dashboard">
+                        <!-- AI Insights Card (Full Width) -->
+                        <div class="analytics-section full-width ai-insights">
+                            <h3>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20"
+                                    height="20">
+                                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path>
+                                    <path d="M12 6v6l4 2"></path>
+                                </svg>
+                                AI Content Recommendations
+                            </h3>
+                            <div id="aiInsights" class="ai-insights-grid">
+                                <!-- AI recommendations will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Engagement Stats Row -->
+                        <div class="analytics-section engagement-stats">
+                            <h3>📊 Engagement Overview</h3>
+                            <div id="engagementStats" class="stats-grid">
+                                <!-- Stats will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Best Posting Times -->
+                        <div class="analytics-section posting-times">
+                            <h3>⏰ Best Posting Times</h3>
+                            <div id="postingTimes" class="posting-times-content">
+                                <!-- Times will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Content Distribution -->
+                        <div class="analytics-section">
+                            <h3>Content Distribution</h3>
+                            <div id="contentDistribution" class="chart-container">
+                                <!-- Chart will be rendered here -->
+                            </div>
+                        </div>
+
+                        <!-- Top Hashtags with View More -->
+                        <div class="analytics-section">
+                            <div class="section-header">
+                                <h3>Top Hashtags</h3>
+                                <button id="viewMoreHashtags" class="view-more-btn" data-expanded="false">
+                                    View More
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        width="14" height="14">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div id="topHashtags" class="hashtags-list" data-show-count="5">
+                                <!-- Hashtags will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Top Accounts with View More -->
+                        <div class="analytics-section">
+                            <div class="section-header">
+                                <h3>Top Accounts</h3>
+                                <button id="viewMoreAccounts" class="view-more-btn" data-expanded="false">
+                                    View More
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        width="14" height="14">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div id="topAccounts" class="accounts-list" data-show-count="5">
+                                <!-- Accounts will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Content Performance -->
+                        <div class="analytics-section full-width">
+                            <h3>📈 Content Performance by Type</h3>
+                            <div id="contentPerformance" class="performance-grid">
+                                <!-- Performance stats will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Saving Trend -->
+                        <div class="analytics-section full-width">
+                            <h3>Saving Trend</h3>
+                            <div id="savingTrend" class="trend-chart">
+                                <!-- Trend chart will be rendered here -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Content Modal -->
+    <div id="contentModal" class="modal hidden">
+        <div class="modal-backdrop" onclick="closeModal()"></div>
+
+        <!-- Navigation Arrows -->
+        <button id="modalPrevBtn" class="modal-nav-btn prev" onclick="navigateModal(-1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        <button id="modalNextBtn" class="modal-nav-btn next" onclick="navigateModal(1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="modal-media">
+                <img id="modalImage" src="" alt="">
+                <video id="modalVideo" src="" controls></video>
+                <!-- Carousel Navigation -->
+                <div id="carouselNav" class="carousel-nav hidden"></div>
+            </div>
+            <div class="modal-details">
+                <div class="modal-user">
+                    <img id="modalUserPic" src="" alt=""
+                        onerror="this.src='data:image/svg+xml;utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\' viewBox=\'0 0 40 40\'%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'%23E1306C\'/%3E%3Ctext x=\'50%25\' y=\'54%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'sans-serif\' font-weight=\'bold\' font-size=\'18\' fill=\'%23fff\'%3EU%3C/text%3E%3C/svg%3E'">
+                    <span id="modalUsername"></span>
+                </div>
+                <p id="modalPostedDate" class="modal-posted-date"></p>
+                <p id="modalCaption"></p>
+                <div class="modal-stats">
+                    <span><svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                            </path>
+                        </svg> <span id="modalLikes">0</span></span>
+                    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                            </path>
+                        </svg> <span id="modalComments">0</span></span>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn primary" onclick="downloadCurrentItem()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Download
+                    </button>
+                    <a id="modalOpenInstagram" href="#" target="_blank" class="modal-btn secondary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Open in Instagram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Refresh Images Button -->
+    <button id="refreshImagesBtn" class="refresh-images-fab" onclick="refreshThumbnailsForPage()"
+        title="Refresh all images from Instagram">
+        <svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+        </svg>
+        <span class="refresh-btn-text">Refresh Images</span>
+    </button>
+
+    <!-- Pro Upgrade Modal -->
+    <div id="proModal" class="modal hidden">
+        <div class="modal-backdrop" onclick="closeProModal()"></div>
+        <div class="modal-content pro-modal">
+            <div class="pro-modal-header">
+                <div class="pro-icon-large">👑</div>
+                <h2>Unlock Unlockt PRO</h2>
+                <p>Take your archive to the next level with professional features</p>
+            </div>
+            <div class="pro-benefits">
+                <div class="benefit-item">
+                    <div class="benefit-icon">🚀</div>
+                    <div class="benefit-text">
+                        <h4>Unlimited AI Sync</h4>
+                        <p>Sync 10,000+ items without any limits or speed throttling.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🧠</div>
+                    <div class="benefit-text">
+                        <h4>Advanced Semantic Search</h4>
+                        <p>Find posts by describing the *feeling* or *vibe*, not just keywords.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">☁️</div>
+                    <div class="benefit-text">
+                        <h4>Cloud Backup & Multi-Device</h4>
+                        <p>Access your vault from any computer, securely synced.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🛠️</div>
+                    <div class="benefit-text">
+                        <h4>Priority Tool Repair</h4>
+                        <p>Get instant fixes if Instagram changes their API.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="pro-pricing">
+                <div class="price-card popular">
+                    <span class="badge">BEST VALUE</span>
+                    <h3>Lifetime Access</h3>
+                    <div class="price">$29<span>.99</span></div>
+                    <p>Pay once, own forever</p>
+                    <button class="pro-cta-btn" onclick="startProCheckout('lifetime')">Go Pro Now</button>
+                </div>
+                <div class="price-card">
+                    <h3>Monthly</h3>
+                    <div class="price">$4<span>.99</span></div>
+                    <p>Cancel anytime</p>
+                    <button class="pro-cta-btn secondary" onclick="startProCheckout('monthly')">Start Trial</button>
+                </div>
+            </div>
+            <button class="modal-close-round" onclick="closeProModal()">×</button>
+        </div>
+    </div>
+
+    <!-- yt-dlp Reels Export Modal -->
+    <div id="ytdlpModal" class="confirm-modal-overlay hidden">
+        <div class="ytdlp-modal-container">
+            <div class="ytdlp-modal-header">
+                <div class="ytdlp-header-title-group">
+                    <span class="ytdlp-badge">🎬 REELS ONLY</span>
+                    <h2>yt-dlp Bulk Reels Downloader</h2>
+                </div>
+                <button class="modal-close-round" onclick="closeYtdlpModal()" title="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="ytdlp-notice-banner">
+                <div class="ytdlp-notice-icon">💡</div>
+                <div class="ytdlp-notice-content">
+                    <strong>Notice:</strong> <code>yt-dlp</code> is a command-line tool built specifically for downloading <b>video Reels</b> in original high resolution with crystal-clear audio. Regular photo posts and carousels cannot be downloaded via yt-dlp.
+                </div>
+            </div>
+
+            <div class="ytdlp-selection-summary">
+                <div class="ytdlp-stat-box">
+                    <span class="ytdlp-stat-val" id="ytdlpReelsCount">0</span>
+                    <span class="ytdlp-stat-lbl">Reels to Export</span>
+                </div>
+                <div class="ytdlp-stat-box">
+                    <span class="ytdlp-stat-val" id="ytdlpBatchCount">0</span>
+                    <span class="ytdlp-stat-lbl">Batch Files</span>
+                </div>
+                <div class="ytdlp-stat-box skipped" id="ytdlpSkippedBox" style="display:none;">
+                    <span class="ytdlp-stat-val" id="ytdlpSkippedCount">0</span>
+                    <span class="ytdlp-stat-lbl">Photos Skipped</span>
+                </div>
+            </div>
+
+            <div class="ytdlp-steps-container">
+                <!-- Step 1 -->
+                <div class="ytdlp-step-card">
+                    <div class="step-badge">STEP 1</div>
+                    <div class="step-content">
+                        <h4>Install yt-dlp (One-time setup)</h4>
+                        <p>If you don't have <code>yt-dlp</code> installed on your computer yet, run this in your terminal or Command Prompt:</p>
+                        <div class="code-copy-row">
+                            <code>pip install yt-dlp</code>
+                            <button class="copy-cmd-mini-btn" onclick="copySnippetText('pip install yt-dlp', this)">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="ytdlp-step-card">
+                    <div class="step-badge">STEP 2</div>
+                    <div class="step-content">
+                        <h4>Instagram Login / Cookies (Recommended)</h4>
+                        <p>To avoid rate limits and download in maximum 1080p quality, yt-dlp can use your active browser session directly with <code>--cookies-from-browser chrome</code> or an exported <code>cookies.txt</code> file in your folder.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="ytdlp-step-card">
+                    <div class="step-badge">STEP 3</div>
+                    <div class="step-content">
+                        <h4>Run Command or Download Scripts</h4>
+                        <p>You can copy the ready-to-run terminal command below, or download the pre-configured <b>.bat</b> and <b>.txt</b> batch files directly.</p>
+                        <div class="code-box-preview">
+                            <pre id="ytdlpSampleCommand">yt-dlp --cookies cookies.txt -f bestvideo+bestaudio --merge-output-format mp4 ...</pre>
+                            <button class="copy-cmd-mini-btn" id="copyMainYtdlpCmdBtn" onclick="copyYtDlpCurrentCommand(this)">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                <span>Copy Full Command</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ytdlp-modal-footer">
+                <button class="confirm-btn secondary" onclick="closeYtdlpModal()">Close</button>
+                <button class="confirm-btn primary" id="downloadYtdlpBatchActionBtn" onclick="executeYtDlpDownload()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download Batch Files (.txt &amp; .bat)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Bulk Download Modal (For multiple/grid selection) -->
+    <div id="downloadModal" class="confirm-modal-overlay hidden">
+        <div class="download-modal-container">
+            <div class="download-modal-header">
+                <div class="download-header-title-group">
+                    <span class="download-badge">📦 BULK DOWNLOAD MANAGER</span>
+                    <h2 id="downloadModalTitle">Download Selected Content</h2>
+                </div>
+                <button class="modal-close-round" onclick="closeDownloadModal()" title="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="downloadModalBody">
+                <!-- Rendered dynamically by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Dedicated Single Item & Carousel Studio Modal -->
+    <div id="singleMediaDownloadModal" class="confirm-modal-overlay hidden">
+        <div class="single-dl-modal-container">
+            <div class="single-dl-modal-header">
+                <div class="single-dl-title-group">
+                    <span id="singleDlBadge" class="single-dl-badge">🎬 REEL DOWNLOAD</span>
+                    <h2 id="singleDlTitle">Download Media</h2>
+                </div>
+                <button class="modal-close-round" onclick="closeSingleMediaDownloadModal()" title="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="singleDlModalBody" class="single-dl-modal-body">
+                <!-- Rendered dynamically for Reel, Image Post, or Carousel -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Collage Preview & Export Modal -->
+    <div id="collagePreviewModal" class="confirm-modal-overlay hidden">
+        <div class="collage-modal-container">
+            <div class="collage-modal-header">
+                <div class="collage-title-group">
+                    <span class="collage-badge">✨ PHOTO COLLAGE</span>
+                    <h2>Carousel Collage Studio</h2>
+                </div>
+                <button class="modal-close-round" onclick="closeCollagePreviewModal()" title="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="collage-modal-body">
+                <div class="collage-canvas-wrapper">
+                    <canvas id="collageCanvas" style="display: none;"></canvas>
+                    <div id="collageLoadingState" class="collage-loading">
+                        <div class="spinner"></div>
+                        <p>Generating high-resolution photo collage...</p>
+                    </div>
+                    <img id="collagePreviewImg" class="collage-preview-img hidden" alt="Collage Preview">
+                </div>
+
+                <div class="collage-info-panel">
+                    <div class="collage-stat-chips">
+                        <div class="c-chip">📐 <span id="collageRes">2160 x 2160 px</span></div>
+                        <div class="c-chip">🖼️ <span id="collageSlidesCount">6 Slides</span></div>
+                        <div class="c-chip">⚪ <span id="collageDivider">3px Clean White Divider</span></div>
+                    </div>
+                    <div class="collage-actions">
+                        <button class="confirm-btn secondary" onclick="closeCollagePreviewModal()">Cancel</button>
+                        <button class="confirm-btn primary" id="downloadCollageBtn" onclick="downloadGeneratedCollage()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Download High-Res Collage (PNG)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Diagnostics, Fix & Error Logs Modal -->
+    <div id="diagnosticsModal" class="confirm-modal-overlay hidden">
+        <div class="diagnostics-modal-container">
+            <!-- Header -->
+            <div class="diag-header">
+                <div class="diag-header-left">
+                    <div class="diag-header-icon">🩺</div>
+                    <div>
+                        <h2>System Diagnostics, Health &amp; Error Logs</h2>
+                        <p class="diag-subtitle">Automated full self-test, live telemetry, structured logs &amp; self-repair tools</p>
+                    </div>
+                </div>
+                <div class="diag-header-actions">
+                    <span class="diag-status-pill" id="diagGlobalStatusPill">
+                        <span class="diag-status-dot pulse"></span>
+                        <span id="diagGlobalStatusText">System Healthy</span>
+                    </span>
+                    <button class="modal-close-round" onclick="closeDiagnosticsModal()" title="Close">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <div class="diag-nav-tabs">
+                <button class="diag-tab active" data-tab="scan" onclick="switchDiagTab('scan')">
+                    <span class="tab-icon">🧪</span> System Self-Test
+                </button>
+                <button class="diag-tab" data-tab="logs" onclick="switchDiagTab('logs')">
+                    <span class="tab-icon">📋</span> Logs &amp; Events (<span id="diagLogsCountBadge">0</span>)
+                </button>
+                <button class="diag-tab" data-tab="errors" onclick="switchDiagTab('errors')">
+                    <span class="tab-icon">📖</span> Error Codes Guide (<span id="diagActiveErrorsBadge">Clean</span>)
+                </button>
+                <button class="diag-tab" data-tab="telemetry" onclick="switchDiagTab('telemetry')">
+                    <span class="tab-icon">📊</span> Live Telemetry
+                </button>
+                <button class="diag-tab" data-tab="tools" onclick="switchDiagTab('tools')">
+                    <span class="tab-icon">🛠️</span> Self-Repair (8)
+                </button>
+            </div>
+
+            <!-- Tab 1: Complete System Test (Full Automated Self-Test) -->
+            <div class="diag-tab-pane active" id="diagPaneScan">
+                <div class="diag-scan-topbar">
+                    <div class="diag-scan-info">
+                        <strong>Comprehensive 16-Point Self-Test Engine</strong>
+                        <p>Scans server core, database I/O, extension handshake, video proxy buffers, search indexing &amp; download persistence.</p>
+                    </div>
+                    <button class="diag-run-btn primary" id="runDiagScanBtn" onclick="runFullSystemDiagnostic()">
+                        <span class="btn-icon">⚡</span> Run Full Diagnostics
+                    </button>
+                </div>
+
+                <!-- Progress Bar (Shown during scan) -->
+                <div class="diag-progress-wrap hidden" id="diagProgressWrap">
+                    <div class="diag-progress-header">
+                        <span id="diagCurrentTestStep">Initializing diagnostic tests...</span>
+                        <span id="diagProgressPercent">0% (Est. ~3.5s)</span>
+                    </div>
+                    <div class="diag-progress-track">
+                        <div class="diag-progress-bar" id="diagProgressBar"></div>
+                    </div>
+                </div>
+
+                <!-- Overall Summary Banner -->
+                <div class="diag-summary-card" id="diagSummaryCard">
+                    <div class="diag-summary-stat">
+                        <span class="stat-num text-success" id="diagStatPassed">--</span>
+                        <span class="stat-lbl">Tests Passed</span>
+                    </div>
+                    <div class="diag-summary-stat">
+                        <span class="stat-num text-warning" id="diagStatWarnings">--</span>
+                        <span class="stat-lbl">Warnings</span>
+                    </div>
+                    <div class="diag-summary-stat">
+                        <span class="stat-num text-danger" id="diagStatErrors">--</span>
+                        <span class="stat-lbl">Errors</span>
+                    </div>
+                    <div class="diag-summary-stat">
+                        <span class="stat-num text-primary" id="diagStatHealthScore">--</span>
+                        <span class="stat-lbl">Health Score</span>
+                    </div>
+                </div>
+
+                <!-- Detailed Test Checklist by Component -->
+                <div class="diag-tests-list" id="diagTestsList">
+                    <!-- Test items generated dynamically -->
+                </div>
+            </div>
+
+            <!-- Tab 2: System Logs & Master Export -->
+            <div class="diag-tab-pane hidden" id="diagPaneLogs">
+                <div class="diag-logs-metrics-bar">
+                    <div class="log-metric-item">
+                        <span class="lbl">TOTAL EVENTS</span>
+                        <strong id="logMetricTotal">0</strong>
+                    </div>
+                    <div class="log-metric-item">
+                        <span class="lbl">ERROR RATE</span>
+                        <strong class="text-success" id="logMetricErrorRate">0.0%</strong>
+                    </div>
+                    <div class="log-metric-item">
+                        <span class="lbl">ACTIVE SUBSYSTEMS</span>
+                        <strong>6 Online</strong>
+                    </div>
+                    <div class="log-metric-item">
+                        <span class="lbl">API LATENCY</span>
+                        <strong class="text-success" id="logMetricLatency">~8ms</strong>
+                    </div>
+                </div>
+
+                <div class="diag-logs-toolbar">
+                    <div class="diag-log-filters">
+                        <button class="log-filter-btn active" data-filter="all" onclick="filterDiagLogs('all')">All</button>
+                        <button class="log-filter-btn" data-filter="api" onclick="filterDiagLogs('api')">API Server</button>
+                        <button class="log-filter-btn" data-filter="extension" onclick="filterDiagLogs('extension')">Chrome Ext</button>
+                        <button class="log-filter-btn" data-filter="download" onclick="filterDiagLogs('download')">Downloads</button>
+                        <button class="log-filter-btn" data-filter="media" onclick="filterDiagLogs('media')">Media</button>
+                        <button class="log-filter-btn" data-filter="repair" onclick="filterDiagLogs('repair')">Repairs</button>
+                        <button class="log-filter-btn" data-filter="error" onclick="filterDiagLogs('error')">Errors Only</button>
+                    </div>
+                    <div class="diag-logs-actions">
+                        <input type="text" id="diagLogSearchInput" placeholder="Filter log text..." oninput="searchDiagLogs(this.value)" class="diag-search-input">
+                        <button class="diag-btn-sm" onclick="copyDiagLogs()">📋 Copy</button>
+                        <button class="diag-btn-sm" onclick="exportDiagLogs('txt')">📄 Export .LOG</button>
+                        <button class="diag-btn-sm primary" onclick="exportDiagLogs('json')">💾 Export .JSON</button>
+                        <button class="diag-btn-sm danger" onclick="clearDiagLogs()">🗑️ Clear</button>
+                    </div>
+                </div>
+
+                <div class="diag-logs-container" id="diagLogsContainer">
+                    <!-- Live structured logs output -->
+                </div>
+            </div>
+
+            <!-- Tab 3: Error Code Guide & Live Status -->
+            <div class="diag-tab-pane hidden" id="diagPaneErrors">
+                <div class="diag-error-guide-header">
+                    <div>
+                        <h3>📖 Professional Error Codes Directory (16 Standardized Codes)</h3>
+                        <p>Standardized diagnostic codes with root cause explanations, live status checks &amp; instant fix shortcuts.</p>
+                    </div>
+                    <div class="diag-error-search">
+                        <input type="text" id="diagErrorSearch" placeholder="Search error code, category, or title..." oninput="filterErrorCodes(this.value)">
+                    </div>
+                </div>
+
+                <div class="diag-error-codes-grid" id="diagErrorCodesGrid">
+                    <!-- Dynamic Error Code Cards -->
+                </div>
+            </div>
+
+            <!-- Tab 4: Live System Telemetry -->
+            <div class="diag-tab-pane hidden" id="diagPaneTelemetry">
+                <div class="diag-telemetry-grid">
+                    <div class="telemetry-card">
+                        <div class="telemetry-icon">⚡</div>
+                        <div class="telemetry-content">
+                            <span class="telemetry-lbl">SERVER UPTIME</span>
+                            <strong class="telemetry-val" id="telemetryUptime">Calculating...</strong>
+                            <span class="telemetry-sub">Port 3000 • Node.js Process</span>
+                        </div>
+                    </div>
+                    <div class="telemetry-card">
+                        <div class="telemetry-icon">🧠</div>
+                        <div class="telemetry-content">
+                            <span class="telemetry-lbl">MEMORY ALLOCATION</span>
+                            <strong class="telemetry-val" id="telemetryMemory">-- MB</strong>
+                            <span class="telemetry-sub">Heap Overhead: Normal</span>
+                        </div>
+                    </div>
+                    <div class="telemetry-card">
+                        <div class="telemetry-icon">💾</div>
+                        <div class="telemetry-content">
+                            <span class="telemetry-lbl">VAULT DATABASE</span>
+                            <strong class="telemetry-val" id="telemetryDbCount">-- Items</strong>
+                            <span class="telemetry-sub">Write Status: OK • data/saved.json</span>
+                        </div>
+                    </div>
+                    <div class="telemetry-card">
+                        <div class="telemetry-icon">🎬</div>
+                        <div class="telemetry-content">
+                            <span class="telemetry-lbl">CACHED REEL VIDEOS</span>
+                            <strong class="telemetry-val" id="telemetryCachedVideos">-- Files</strong>
+                            <span class="telemetry-sub">Local /videos Directory Cache</span>
+                        </div>
+                    </div>
+                    <div class="telemetry-card">
+                        <div class="telemetry-icon">🧩</div>
+                        <div class="telemetry-content">
+                            <span class="telemetry-lbl">EXTENSION STATUS</span>
+                            <strong class="telemetry-val" id="telemetryExtStatus">Connected</strong>
+                            <span class="telemetry-sub" id="telemetryExtUser">@voxo_eg</span>
+                        </div>
+                    </div>
+                    <div class="telemetry-card">
+                        <div class="telemetry-icon">📦</div>
+                        <div class="telemetry-content">
+                            <span class="telemetry-lbl">DOWNLOAD PACKAGES</span>
+                            <strong class="telemetry-val" id="telemetryDownloadsCount">-- Records</strong>
+                            <span class="telemetry-sub">Persistent Storage Synced</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="telemetry-action-row">
+                    <button class="diag-btn-sm primary" onclick="refreshTelemetryData()">🔄 Refresh Telemetry Snapshot</button>
+                    <span style="font-size: 11.5px; color: var(--text-secondary);">Last updated: <span id="telemetryLastSnapshot">Just now</span></span>
+                </div>
+
+                <div class="telemetry-credits-card" style="margin-top: 18px; padding: 14px 18px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: var(--border-radius-md); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                    <div>
+                        <div style="font-weight: 700; font-size: 13px; color: var(--text-primary); margin-bottom: 2px;">✨ Unlockt v6.7 — Core Architecture &amp; System Engine</div>
+                        <div style="font-size: 11.5px; color: var(--text-secondary);">Developed by <strong style="color: var(--text-primary);">Mahmoud Madi</strong> • Digital Marketing &amp; IT Specialist</div>
+                    </div>
+                    <div style="font-size: 11px; text-align: right; color: #fa7e1e;">
+                        <div style="font-weight: 600;">Premier Tech | For Integrated Solutions</div>
+                        <div style="color: #bbb;">VOXO | AI &amp; Media Agency</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 5: Self-Repair & Recovery Tools -->
+            <div class="diag-tab-pane hidden" id="diagPaneTools">
+                <div class="diag-tools-intro">
+                    <h3>🛠️ 8 Non-Destructive System Repair &amp; Maintenance Utilities</h3>
+                    <p>Run automated maintenance routines without deleting your saved content or vault metadata.</p>
+                </div>
+                <div class="diag-tools-grid">
+                    <div class="diag-repair-card">
+                        <div class="repair-icon">🖼️</div>
+                        <div class="repair-info">
+                            <strong>Refresh Thumbnail Proxy Caches</strong>
+                            <p>Refreshes expired Instagram image headers and re-verifies video cache buffers.</p>
+                        </div>
+                        <button class="diag-btn-sm primary" onclick="triggerRepairTool('thumbnails')">Run Fix</button>
+                    </div>
+                    <div class="diag-repair-card">
+                        <div class="repair-icon">🏷️</div>
+                        <div class="repair-info">
+                            <strong>Rebuild Smart Collections Index</strong>
+                            <p>Re-evaluates hashtags, audio metadata, and auto-tags all content items.</p>
+                        </div>
+                        <button class="diag-btn-sm primary" onclick="triggerRepairTool('collections')">Rebuild</button>
+                    </div>
+                    <div class="diag-repair-card">
+                        <div class="repair-icon">📊</div>
+                        <div class="repair-info">
+                            <strong>Recalculate Analytics &amp; Insights</strong>
+                            <p>Re-computes posting times, engagement statistics, and top creator rankings.</p>
+                        </div>
+                        <button class="diag-btn-sm primary" onclick="triggerRepairTool('analytics')">Recalculate</button>
+                    </div>
+                    <div class="diag-repair-card">
+                        <div class="repair-icon">💾</div>
+                        <div class="repair-info">
+                            <strong>Verify &amp; Optimize Database Schema</strong>
+                            <p>Checks data integrity of saved.json and cleans orphaned metadata entries.</p>
+                        </div>
+                        <button class="diag-btn-sm primary" onclick="triggerRepairTool('database')">Optimize</button>
+                    </div>
+                    <div class="diag-repair-card">
+                        <div class="repair-icon">🔍</div>
+                        <div class="repair-info">
+                            <strong>Re-index AI Search Tokens</strong>
+                            <p>Rebuilds keyword search inverted index and pre-tokenizes captions and hashtags.</p>
+                        </div>
+                        <button class="diag-btn-sm primary" onclick="triggerRepairTool('ai_search')">Re-index</button>
+                    </div>
+                    <div class="diag-repair-card">
+                        <div class="repair-icon">📁</div>
+                        <div class="repair-info">
+                            <strong>Purge Corrupted Video Buffers</strong>
+                            <p>Scans /videos folder and removes 0-byte or incomplete streaming files.</p>
+                        </div>
+                        <button class="diag-btn-sm primary" onclick="triggerRepairTool('purge_videos')">Purge</button>
+                    </div>
+                    <div class="diag-repair-card">
+                        <div class="repair-icon">📦</div>
+                        <div class="repair-info">
+                            <strong>Synchronize Download Manager</strong>
+                            <p>Re-evaluates download package previews, storage metrics &amp; format tags.</p>
+                        </div>
+                        <button class="diag-btn-sm primary" onclick="triggerRepairTool('dlm_sync')">Sync</button>
+                    </div>
+                    <div class="diag-repair-card">
+                        <div class="repair-icon">⚡</div>
+                        <div class="repair-info">
+                            <strong>Reset Network &amp; Proxy Bridge</strong>
+                            <p>Flushes proxy socket keepalives and re-initializes extension listener.</p>
+                        </div>
+                        <button class="diag-btn-sm primary" onclick="triggerRepairTool('reset_network')">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="jszip.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

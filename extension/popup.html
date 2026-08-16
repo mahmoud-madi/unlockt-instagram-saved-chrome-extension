@@ -1,0 +1,312 @@
+<!--
+  Unlockt (v6.7) - Extension Popup Interface
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Developed by: Mahmoud Madi (Digital Marketing & IT Specialist)
+  Organizations: Premier Tech (For Integrated Solutions) & VOXO AI (AI & Media Agency)
+  License: MIT License (Open Source)
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlockt</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+    <div class="popup-container">
+        <!-- Header -->
+        <div class="popup-header">
+            <div class="header-gradient"></div>
+            <div class="header-content">
+                <div class="logo-icon" style="font-size: 20px; display: flex; align-items: center; justify-content: center;">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color: #fff;">
+                        <path d="M8 8V5a4 4 0 0 1 8 0v1"></path>
+                        <path d="M6 9h12v12l-6-3.5L6 21V9z"></path>
+                    </svg>
+                </div>
+                <div class="header-text">
+                    <h1>Unlockt</h1>
+                    <span class="version">v6.7</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checking State -->
+        <div id="checkingState" class="state active">
+            <div class="state-content">
+                <div class="loading-spinner"></div>
+                <p class="checking-text">Checking Instagram login...</p>
+            </div>
+        </div>
+
+        <!-- Login Required State -->
+        <div id="loginState" class="state">
+            <div class="state-content">
+                <div class="status-indicator offline">
+                    <span class="status-dot"></span>
+                    <span>Not logged in</span>
+                </div>
+
+                <div class="login-prompt">
+                    <div class="icon-circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <h2>Not Logged In</h2>
+                    <p>Please log into Instagram first</p>
+                </div>
+
+                <button id="loginBtn" class="primary-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <circle cx="18" cy="6" r="1.5" fill="currentColor"></circle>
+                    </svg>
+                    Open Instagram
+                </button>
+
+                <button id="retryLoginBtn" class="secondary-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23 4 23 10 17 10"></polyline>
+                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                    </svg>
+                    Check Again
+                </button>
+            </div>
+        </div>
+
+        <!-- Ready to Sync State -->
+        <div id="readyState" class="state">
+            <div class="state-content">
+                <div class="status-indicator online">
+                    <span class="status-dot"></span>
+                    <span>Connected</span>
+                </div>
+
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatarContainer">
+                        <img id="userAvatarImg" class="hidden" referrerpolicy="no-referrer" src="" alt="" />
+                        <svg id="userAvatarSvg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div class="user-details">
+                        <span id="fullName" class="full-name">Instagram User</span>
+                        <span id="username" class="username">@user</span>
+                    </div>
+                </div>
+
+                <!-- Resume info (shown if there's a saved cursor) -->
+                <div id="resumeInfo" class="resume-info hidden">
+                    <p>📍 Previous sync stopped at <span id="resumeItemCount">0</span> items</p>
+                </div>
+
+                <button id="syncBtn" class="sync-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23 4 23 10 17 10"></polyline>
+                        <polyline points="1 20 1 14 7 14"></polyline>
+                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                    </svg>
+                    <span id="syncBtnText">Full Sync (All Content)</span>
+                </button>
+
+                <!-- Sync Settings -->
+                <div class="sync-settings">
+                    <label class="setting-item">
+                        <input type="checkbox" id="downloadMediaToggle" checked>
+                        <span class="checkbox-custom"></span>
+                        <div class="setting-text">
+                            <span class="setting-label">Download media locally</span>
+                            <span class="setting-desc">Permanent backup (Phase 2)</span>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Sync New Only button -->
+                <button id="syncNewBtn" class="sync-new-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <polyline points="19 12 12 19 5 12"></polyline>
+                    </svg>
+                    <span>Sync New Only</span>
+                </button>
+
+                <!-- Continue Sync button (shown if there's a saved cursor) -->
+                <button id="continueSyncBtn" class="continue-sync-btn hidden">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    Continue Sync (fetch older items)
+                </button>
+
+                <div class="action-buttons">
+                    <button id="openAppBtn" class="action-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Open Unlockt App
+                    </button>
+                    <button id="viewSavedBtn" class="action-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        View Saved
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sync Confirmation & Safety Disclaimer State -->
+        <div id="confirmSyncState" class="state">
+            <div class="state-content" style="padding: 10px 14px 6px; text-align: left;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span id="popupSyncModalIcon" style="font-size: 18px;">⚡</span>
+                        <div>
+                            <h2 id="popupSyncModalTitle" style="font-size: 14px; font-weight: 700; margin: 0; color: #fff;">Sync New Content Only</h2>
+                            <span id="popupSyncModalBadge" style="font-size: 9.5px; font-weight: 700; padding: 1px 6px; border-radius: 12px; background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3);">RECOMMENDED • SAFE</span>
+                        </div>
+                    </div>
+                    <button id="cancelPopupSyncTopBtn" style="background: none; border: none; color: #888; font-size: 18px; cursor: pointer; padding: 2px 6px;">&times;</button>
+                </div>
+
+                <p id="popupSyncModalDesc" style="font-size: 11px; color: #aaa; margin-bottom: 8px; line-height: 1.4;">
+                    Extracts recently saved items since your previous sync session.
+                </p>
+
+                <!-- Disclaimer & Full Release of Liability Box -->
+                <div style="background: rgba(255, 69, 58, 0.08); border: 1px solid rgba(255, 69, 58, 0.28); border-radius: 8px; padding: 8px 10px; margin-bottom: 8px;">
+                    <div style="font-weight: 700; font-size: 11px; color: #ff6961; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">
+                        <span>⚠️</span> Disclaimer &amp; Release of Liability
+                    </div>
+                    <ul style="font-size: 10px; color: #e0e0e0; line-height: 1.45; margin: 0; padding-left: 14px;">
+                        <li style="margin-bottom: 3px;"><b>Zero Liability &amp; Use At Own Risk:</b> The developers and affiliates (Mahmoud Madi, Premier Tech, VOXO) assume <b>NO liability or responsibility</b> for any Instagram account warnings, action blocks, rate limits, or bans. You use this software solely at your own risk.</li>
+                        <li style="margin-bottom: 3px;"><b>Use Moderately:</b> Do not spam or run back-to-back large syncs to avoid triggering Instagram automated activity filters.</li>
+                        <li style="margin-bottom: 3px;"><b>100% Local &amp; Private:</b> Open-source &amp; client-side. We do not access or store your credentials.</li>
+                        <li><b>Expiring Links:</b> Instagram CDN URLs expire; download local backups for permanent storage.</li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; gap: 4px; margin-bottom: 10px; flex-wrap: wrap;">
+                    <span style="font-size: 9.5px; padding: 2px 6px; border-radius: 4px; background: rgba(255,255,255,0.06); color: #888; border: 1px solid rgba(255,255,255,0.08);">⏱️ Anti-detection delay</span>
+                    <span style="font-size: 9.5px; padding: 2px 6px; border-radius: 4px; background: rgba(255,255,255,0.06); color: #888; border: 1px solid rgba(255,255,255,0.08);">🔒 Private client execution</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 8px;">
+                    <button id="cancelPopupSyncBtn" class="secondary-btn" style="padding: 9px; font-size: 12px; margin: 0;">Cancel</button>
+                    <button id="confirmPopupSyncBtn" class="primary-btn" style="padding: 9px; font-size: 12px; margin: 0; font-weight: 700;">Proceed &amp; Sync</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Syncing State -->
+        <div id="syncingState" class="state">
+            <div class="state-content">
+                <div class="sync-animation">
+                    <div class="sync-ring"></div>
+                    <div class="sync-icon">📦</div>
+                </div>
+
+                <h2>Syncing Content</h2>
+                <p class="sync-status">Fetching saved posts...</p>
+
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <span class="progress-text">0%</span>
+
+                <p class="sync-note">This may take a few minutes for large collections</p>
+            </div>
+        </div>
+
+        <!-- Complete State -->
+        <div id="completeState" class="state">
+            <div class="state-content">
+                <div class="success-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+
+                <h2>Sync Complete!</h2>
+                <p id="totalSynced" class="total-synced">0 items synced!</p>
+
+                <div class="sync-stats">
+                    <div class="stat">
+                        <span class="stat-icon">📸</span>
+                        <span id="syncedPosts" class="stat-value">0</span>
+                        <span class="stat-label">Posts</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-icon">🎬</span>
+                        <span id="syncedReels" class="stat-value">0</span>
+                        <span class="stat-label">Reels</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-icon">🎵</span>
+                        <span id="syncedAudio" class="stat-value">0</span>
+                        <span class="stat-label">Audio</span>
+                    </div>
+                </div>
+
+                <button id="openAppCompleteBtn" class="primary-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                    Open Unlockt App
+                </button>
+
+                <button id="doneBtn" class="secondary-btn">Done</button>
+            </div>
+        </div>
+
+        <!-- Error State -->
+        <div id="errorState" class="state">
+            <div class="state-content">
+                <div class="error-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="15" y1="9" x2="9" y2="15"></line>
+                        <line x1="9" y1="9" x2="15" y2="15"></line>
+                    </svg>
+                </div>
+
+                <h2>Sync Failed</h2>
+                <p id="errorMessage" class="error-message">An error occurred</p>
+
+                <button id="retryErrorBtn" class="primary-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23 4 23 10 17 10"></polyline>
+                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                    </svg>
+                    Try Again
+                </button>
+            </div>
+        </div>
+
+        <!-- Developer & Organization Credits -->
+        <div class="popup-credits" style="padding: 6px 12px 6px; text-align: center; border-top: 1px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.25); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+            <div style="font-size: 10px; font-weight: 600; color: #ccc;">
+                By <span style="color: #fff;">Mahmoud Madi</span>
+            </div>
+            <div style="font-size: 9px; color: #fa7e1e; opacity: 0.95; margin-top: 2px;">
+                Premier Tech &amp; VOXO AI
+            </div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>

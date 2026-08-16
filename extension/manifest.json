@@ -1,0 +1,74 @@
+{
+    "manifest_version": 3,
+    "name": "Unlockt - Instagram Saves Manager",
+    "version": "6.7",
+    "author": "Mahmoud Madi | Digital Marketing & IT Specialist (Premier Tech & VOXO)",
+    "description": "Unlockt — Your Instagram saves — extracted, organized, yours. Developed by Mahmoud Madi | Premier Tech & VOXO AI Agency.",
+    "permissions": [
+        "cookies",
+        "storage",
+        "activeTab",
+        "tabs",
+        "scripting"
+    ],
+    "host_permissions": [
+        "*://*.instagram.com/*",
+        "https://www.instagram.com/*",
+        "https://i.instagram.com/*",
+        "http://localhost:3000/*",
+        "http://localhost/*"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icons/icon16.png",
+            "48": "icons/icon48.png",
+            "128": "icons/icon128.png"
+        }
+    },
+    "icons": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.instagram.com/*",
+                "https://instagram.com/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "css": [
+                "content.css"
+            ],
+            "run_at": "document_idle"
+        },
+        {
+            "matches": [
+                "http://localhost:3000/*",
+                "http://localhost/*"
+            ],
+            "js": [
+                "vault-bridge.js"
+            ],
+            "run_at": "document_idle"
+        }
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "icons/*"
+            ],
+            "matches": [
+                "https://www.instagram.com/*",
+                "https://instagram.com/*",
+                "http://localhost:3000/*"
+            ]
+        }
+    ]
+}

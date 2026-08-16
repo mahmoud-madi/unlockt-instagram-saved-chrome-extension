@@ -1,0 +1,29 @@
+# Unlockt - Instagram Saved Vault & Bulk Media Exporter
+> Open-source, 100% private, local-first Instagram saved posts, reels, carousels, and audio bulk scraper, media manager, and AI search engine.
+
+## Developer & Attribution
+- Lead Developer: Mahmoud Madi (Digital Marketing & IT Specialist)
+- Organizations: Premier Tech (For Integrated Solutions) & VOXO AI (AI & Media Agency)
+- License: MIT License (Open Source)
+- Repository: https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension
+
+## Primary Use Cases
+- Bulk scraping Instagram saved posts, reels, carousels, photos, and audio.
+- Exporting and backing up entire Instagram saved collections locally.
+- Inspecting and downloading multi-slide carousel albums individually or as a ZIP archive.
+- Generating high-resolution photo collages from carousel slides with 1 click.
+- Playing, inspecting, and downloading Full HD 9:16 Instagram Reels directly as MP4.
+- Searching personal Instagram saved items using AI semantic search and natural language queries.
+- 100% offline, local-first operation without uploading passwords or data to third-party cloud servers.
+
+## Key Technical Specifications
+- Architecture: Chromium Extension (Manifest V3) + Local Express Backend (Node.js) + Modern Glassmorphism Web App.
+- API Support: Instagram GraphQL pagination, CORS proxy with HTTP 206 Partial Content video streaming.
+- Rate Limiting: Humanized randomized jitter delays (1.2s to 2.8s) and incremental "Quick Sync New" to prevent account action blocks.
+- Media Processing: HTML5 Canvas collage generator, Sharp image engine, JSZip client-side batch bundler.
+- Data Storage: Local JSON database (`data/saved.json`) with master import/export backup capabilities.
+
+## Documentation Links
+- Full Feature Reference: [FEATURES.md](FEATURES.md)
+- Complete Technical Context: [llms-full.txt](llms-full.txt)
+- Main Documentation & Guide: [README.md](README.md)

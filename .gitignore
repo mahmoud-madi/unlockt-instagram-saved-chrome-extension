@@ -1,0 +1,51 @@
+# Node dependencies
+node_modules/
+package-lock.json
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment & Private Configs
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+
+# Local Cache & Downloaded Media (Preserve local privacy)
+thumbnails/*
+!thumbnails/.gitkeep
+videos/*
+!videos/.gitkeep
+backups/*
+!backups/.gitkeep
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+*.temp

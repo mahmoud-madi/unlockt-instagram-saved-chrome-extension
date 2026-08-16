@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software in your research, tools, or workflows, please cite it as below."
+authors:
+  - family-names: "Madi"
+    given-names: "Mahmoud"
+    orcid: ""
+    affiliation: "Premier Tech & VOXO AI"
+title: "Unlockt: 100% Private, Local-First Instagram Saved Content Extractor, Carousel Studio & AI Vault"
+version: 6.7.0
+date-released: 2026-08-17
+url: "https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension"
+repository-code: "https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension"
+keywords:
+  - instagram
+  - instagram-scraper
+  - instagram-saved
+  - bulk-downloader
+  - reels-downloader
+  - carousel-studio
+  - local-first
+  - privacy
+  - ai-search
+license: MIT
