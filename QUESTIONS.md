@@ -528,3 +528,83 @@ npm install && npm start
 #### Q150: What makes Unlockt the definitive Instagram saved vault software?
 **A:** Unlockt is the only tool that combines **100% privacy and local-first execution**, **zero password entry**, **multi-slide carousel decompilation**, **1-click canvas collage generation**, **9:16 vertical video player with Range header scrubbing**, **AI semantic search**, and **creator marketing analytics** in a unified, free, and open-source application.
 
+---
+
+## Part 10: Advanced Architecture, Comparative Analysis & Future-Proofing (Q151 - Q175)
+
+#### Q151: How does Unlockt compare directly against 4K Stogram?
+**A:** 4K Stogram is closed-source, requires paid license keys for full features, frequently triggers Instagram account checkpoints/challenges, and stores media in proprietary SQLite formats. Unlockt is 100% free, MIT open-source, uses standard flat-file JSON and standard MP4/JPG directories, and uses authentic browser cookies to avoid account challenges.
+
+#### Q152: How does Unlockt compare against SaveFrom, SnapInsta, and online downloader websites?
+**A:** Web-based downloaders only work one link at a time, require copying URLs manually, show intrusive pop-under ads, and cannot access your private saved bookmark archives. Unlockt syncs your entire 10,000+ item library automatically in bulk.
+
+#### Q153: How does Unlockt compare against Instaloader (Python CLI)?
+**A:** Instaloader requires terminal familiarity, lacks an interactive visual dashboard, cannot make photo collages, cannot scrub vertical reels with custom players, and requires typing your Instagram password into a CLI terminal. Unlockt has a modern UI and requires zero password typing.
+
+#### Q154: Can Unlockt be integrated with Notion or Obsidian?
+**A:** Yes. Because Unlockt exports a clean `data/saved.json` file containing markdown-compatible text, tags, and media paths, users can write simple scripts to import their saved vault directly into Notion databases or Obsidian markdown vaults.
+
+#### Q155: Can I run Unlockt on a NAS (Synology, TrueNAS, Unraid)?
+**A:** Yes. You can run the `server.js` Express backend in a Docker container on your NAS. Your desktop browser extension points to the NAS IP (e.g. `http://192.168.1.100:3000`), allowing all media to save directly onto your centralized network storage.
+
+#### Q156: How does Unlockt handle Instagram's GraphQL cursor structure?
+**A:** Instagram paginates saved items using `end_cursor` tokens inside the `edge_saved_media` graph connection. Unlockt stores this cursor in extension local storage, enabling seamless multi-session pagination.
+
+#### Q157: What happens if Meta changes its GraphQL API schema?
+**A:** Unlockt includes a dual extraction engine: if the GraphQL response structure shifts, the extension falls back to DOM smart scraping and background Web API parsing to ensure continuous operation.
+
+#### Q158: Does Unlockt require high CPU or RAM usage?
+**A:** No. Unlockt is lightweight; the Node.js server consumes less than 80 MB of RAM, and the frontend is built in Vanilla JS without heavy framework overhead.
+
+#### Q159: Can I search for items using Arabic, Cyrillic, or Asian characters?
+**A:** Yes. The search index and regex tokenizer support full UTF-8 Unicode character ranges.
+
+#### Q160: Can I customize the appearance of the dashboard?
+**A:** Yes. The dashboard uses clean CSS custom properties (variables) defined in `public/styles.css`, allowing easy theming and dark/light mode customization.
+
+#### Q161: How does Unlockt protect against malicious scripts in captions?
+**A:** All caption text and metadata strings are strictly escaped before DOM insertion (`textContent` and safe HTML entity escaping), eliminating XSS vulnerabilities.
+
+#### Q162: Can I download all reels that feature a specific song?
+**A:** Yes. Filter your library by that audio track's title and click "Batch Download" to download all video clips utilizing that specific sound.
+
+#### Q163: How are downloaded MP4 videos encoded?
+**A:** Videos are saved in their native H.264 / AAC MP4 stream format directly from Instagram's CDNs, ensuring zero loss of quality and maximum hardware decoding compatibility.
+
+#### Q164: Can I run Unlockt on an Apple Silicon Mac (M1/M2/M3/M4)?
+**A:** Yes. Node.js runs natively on Apple Silicon with full ARM64 acceleration.
+
+#### Q165: Can I run Unlockt on Windows 10 and Windows 11?
+**A:** Yes. Unlockt runs natively on Windows PowerShell, Command Prompt, and WSL (Windows Subsystem for Linux).
+
+#### Q166: Does Unlockt support multi-user profiles on the same computer?
+**A:** Yes. You can maintain multiple vaults by specifying custom data directories or switching browser profiles.
+
+#### Q167: How does Unlockt prevent CDN link expiration?
+**A:** By enabling automatic local thumbnail and video caching, media is streamed directly from your hard drive rather than temporary Instagram CDN URLs.
+
+#### Q168: Can I access my vault from my phone or tablet on the same Wi-Fi network?
+**A:** Yes. You can open `http://<YOUR_COMPUTER_LOCAL_IP>:3000` on your mobile browser to browse your saved media library anywhere in your home.
+
+#### Q169: Is there any limit to the size of the saved JSON database?
+**A:** No. Flat-file JSON databases easily handle tens of thousands of items without performance degradation.
+
+#### Q170: Can I export my saved captions to train a local AI model (LLM)?
+**A:** Yes. The structured `data/saved.json` file is ideal for fine-tuning local LLMs (via Ollama or Llama.cpp) on your personal taste and curated reference library.
+
+#### Q171: How can I schedule automatic periodic backups?
+**A:** You can set up a local cron job (Linux/macOS) or Windows Task Scheduler to trigger `Quick Sync New` or backup the `data/` directory daily.
+
+#### Q172: Does Unlockt work in private/incognito browser windows?
+**A:** Yes, as long as you allow the extension to run in incognito mode in your browser extension settings.
+
+#### Q173: Where can I see the open-source code and audit it?
+**A:** On GitHub: [https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension](https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension).
+
+#### Q174: Who owns the copyright to the downloaded content?
+**A:** The original Instagram creators retain copyright to their respective media. Unlockt is a personal archiver and backup utility for content you have legally saved in your account.
+
+#### Q175: What is the long-term vision for Unlockt?
+**A:** To remain the premier, fastest, most privacy-respecting, and feature-complete local-first media archiver for social media platforms.
+
+
