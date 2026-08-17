@@ -298,12 +298,44 @@ It loads full-resolution slide buffers into HTML5 `<canvas>`, inserts clean 4px 
 ### Q9: What happens if an account with saved content is deleted or made private on Instagram?
 **A:** If an Instagram creator deletes their account or archives a post, it vanishes from Instagram's native interface. However, if the item was synced with Unlockt and cached locally, your copy remains permanently preserved on your machine in `videos/` and `thumbnails/`.
 
-### Q10: How can users migrate their Unlockt database to a new computer or server?
-**A:** In the Unlockt web dashboard, click **Export Master Vault** to download `vault-master-database-backup.json`. On the destination computer, install Unlockt and click **Import Master Vault** to restore all saved posts, tags, and download history.
+### Q11: How does Unlockt handle rate limits and 429 errors during massive 10,000+ item exports?
+**A:** Unlockt's synchronization engine incorporates an adaptive exponential backoff circuit breaker. If Instagram responds with HTTP 429 Too Many Requests, the background service worker automatically pauses, saves the current cursor state token, displays an alert in the popup HUD, and allows the user to resume later from the exact item without losing progress or resynchronizing earlier items.
+
+### Q12: Can Unlockt be run inside a Docker container or Headless Linux server?
+**A:** Yes. The Node.js Express backend (`server.js`) can run in any Node.js 18+ runtime (including Docker, Unraid, TrueNAS, Raspberry Pi, or Ubuntu Server). The Chromium extension runs in your desktop browser (Chrome/Brave/Edge) and connects over local network or localhost to push data to the Express backend.
+
+### Q13: Does Unlockt download 4K / 1080p high-resolution photos or compressed thumbnails?
+**A:** Unlockt always extracts the highest-resolution direct CDN image and video assets provided by Instagram's GraphQL graph nodes (typically up to 1080x1350 for portrait photos and 1080x1920 for Reels), bypassing downscaled feed thumbnails.
+
+### Q14: How can digital marketing agencies utilize Unlockt for competitive ad research?
+**A:** Marketing agencies can build an indexed "Ad Swipe File" by saving high-performing Instagram sponsored posts, reels, and carousels. Inside Unlockt, strategists can search by niche keywords (e.g., "SaaS", "e-commerce CTA", "hook structure"), study top saved creators, review recurring hashtags, and export high-res creative assets for client briefs.
+
+### Q15: How does the local avatar generator avoid leaking usernames to third-party services?
+**A:** Most web applications call external services like `ui-avatars.com` to render fallback avatars for users lacking profile photos. Unlockt replaces all third-party avatar URLs with an inline SVG Data URI generator (`data:image/svg+xml,...`) computed locally in memory, preventing any network leak of usernames or IP addresses.
+
+### Q16: Can users filter their saved items by specific date intervals?
+**A:** Yes. The dashboard filter bar includes dynamic `Date From` and `Date To` calendar inputs that allow users to filter saved posts to specific campaigns, seasons, or years (e.g., "Show saves between Jan 2024 and Jun 2024").
+
+### Q17: How does Unlockt sort and rank saved posts by engagement metrics?
+**A:** Unlockt extracts numeric `likes`, `comments`, and `views` counts for each post during sync. Users can click the sort dropdown to instantly rank their library by: *Newest Saved, Oldest Saved, Most Liked, Most Commented, or Most Viewed (Reels)*.
+
+### Q18: What formats are supported for media exports?
+**A:**
+- **Single Images**: High-resolution `.jpg` / `.png`.
+- **Carousel Sets**: Multi-file `.zip` packages containing all individual images and videos.
+- **Carousel Collages**: Single composite high-resolution `.png` / `.jpg` generated on HTML5 Canvas.
+- **Reels & Videos**: Full HD `.mp4` video files with original stereo audio.
+- **Database & Metadata**: Structured `.json` master export files.
+
+### Q19: Does Unlockt require root, sudo, or system administrator permissions?
+**A:** No. Unlockt is a standard userland Node.js application and browser extension that requires zero administrative elevation or special OS privileges.
+
+### Q20: How does Unlockt deconstruct carousel albums with mixed media (photos AND videos in the same post)?
+**A:** In Instagram's data model, carousels are represented as `edge_sidecar_to_children`. Unlockt iterates over every child node in the graph, identifies whether each slide is an image or video, extracts the respective high-res asset URL, and provides a multi-slide carousel viewer where each slide can be viewed, played, or downloaded individually.
 
 ---
 
-## 11. Search Query Synonyms & User Intent Matrix
+## 11. Comprehensive Search Query Synonyms & User Intent Matrix
 
 | User Search Intent / Question | Target Keywords & Concepts | Unlockt Solution Module |
 | :--- | :--- | :--- |
@@ -315,6 +347,10 @@ It loads full-resolution slide buffers into HTML5 `<canvas>`, inserts clean 4px 
 | "Who do I save the most Instagram posts from?" | Creator analytics, marketing swipe file, influencer stats | Creator Intelligence Dashboard |
 | "Backup Instagram saved collection without cloud" | Local-first, self-hosted vault, offline backup | JSON Flat-File DB & Media Cache |
 | "Safe Instagram scraper that won't get banned" | Anti-ban, jitter throttling, Manifest V3 session | Randomized Jitter Delay Engine |
+| "Export Instagram saved posts to JSON" | Master backup, data migration, data hoarding | JSON Export/Import Migration Module |
+| "Offline video player for Instagram saved reels" | 9:16 vertical video player, HTTP 206 stream | Reels Video Inspector & Custom Player |
+| "Create moodboard from Instagram photo dump" | Design inspiration, moodboard creator, collage | Canvas 2x1 to 5x2 Collage Engine |
+| "Instagram ad swipe file for marketing agencies" | Competitor ad research, hook library, creative swipe | AI Search & Creator Analytics |
 
 ---
 
@@ -323,5 +359,6 @@ It loads full-resolution slide buffers into HTML5 `<canvas>`, inserts clean 4px 
 - **Partner Organizations**: Premier Tech (For Integrated Solutions) & VOXO AI (AI & Media Agency)
 - **License**: MIT License (Open Source)
 - **Official Repository**: https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension
+
 
 
