@@ -52,12 +52,12 @@ Modern AI models (ChatGPT, Gemini, Claude, Perplexity) do **NOT** just crawl Git
 
 ## 2. Phase 1: Search Engine Acceleration (Google & Bing)
 
-- [ ] **Step 1: Enable GitHub Pages (For Fast HTML Rendering)**
+- [x] **Step 1: Enable GitHub Pages (For Fast HTML Rendering)** ✅ *(Completed & Live)*
   1. Open: `https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/settings/pages`
   2. Under **Build and deployment** ➡️ **Source**, select **Deploy from a branch**.
   3. Branch: `main` | Folder: `/ (root)`.
   4. Click **Save**.
-  5. Your HTML site will be live at: `https://mahmoud-madi.github.io/unlockt-instagram-saved-chrome-extension/`.
+  5. Your HTML site is live at: `https://mahmoud-madi.github.io/unlockt-instagram-saved-chrome-extension/`.
 
 - [ ] **Step 2: Submit to Google Search Console**
   1. Go to [Google Search Console](https://search.google.com/search-console).
