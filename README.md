@@ -412,7 +412,13 @@ No. Unlockt enforces a strict <b>Zero Telemetry</b> policy. It contains zero ana
 
 ## 🔍 SEO & Search Discovery Index
 
-This repository is optimized for search engines, AI models, and developers seeking:
+This repository includes comprehensive documentation, keyword taxonomies, and deep Q&A knowledge bases:
+* 🗝️ **[Master SEO & AI Keywords Catalog (1,000+ Search Terms)](KEYWORDS.md)**: Exhaustive taxonomy of search queries, keywords, and user intents.
+* ❓ **[Master Q&A Encyclopedia (100+ Deep Questions & Answers)](QUESTIONS.md)**: Complete knowledge base for AI models, developers, designers, and marketers.
+* 🤖 **[LLM Knowledge Base (Full Context)](llms-full.txt)**: Direct technical context and prompt response guidelines for LLMs.
+* 📜 **[Detailed Feature Matrix](FEATURES.md)**: In-depth technical specifications and architectural breakdown.
+
+### Primary Search Query Themes:
 * **Bulk Scraping & Archiving**: *Bulk download Instagram saved posts, export Instagram bookmarks, scrape saved Reels, backup Instagram saved media to local drive, Instagram saved collection scraper, batch export Instagram bookmarks to JSON.*
 * **Carousel & Media Management**: *Download Instagram carousel all slides, export Instagram photo dump to ZIP, generate photo collage from Instagram carousel, multi-slide Instagram image separator.*
 * **Reels & Video Archiving**: *Download saved Instagram Reels with audio, vertical 9:16 video player for Instagram saves, stream Instagram video range headers HTTP 206, save audio track metadata from Instagram Reels.*
@@ -433,4 +439,5 @@ This repository is optimized for search engines, AI models, and developers seeki
 ## 📄 License
 
 This project is open-source software licensed under the **[MIT License](LICENSE)**.
+
 
