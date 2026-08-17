@@ -2,36 +2,588 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <!-- Search Engine Verification Meta Tags -->
   <meta name="google-site-verification" content="_nlAfuTftrgjpyQ4KgcDJSEqPJeODyOmR3JY0Van43U" />
   <meta name="msvalidate.01" content="DC47BED53F8E5DAC2DD834717C893B52" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unlockt – Instagram Saved Vault & Bulk Media Exporter (Open Source)</title>
-  <meta name="description" content="Unlockt is a 100% free, local-first, open-source Chrome extension and Node.js dashboard to bulk download, export, and organize all your Instagram saved posts, reels, and carousels.">
-  <meta name="author" content="Mahmoud Madi – Digital Marketing & IT Specialist">
-  <meta name="keywords" content="instagram saved bulk download, export instagram bookmarks, instagram carousel downloader, instagram reels exporter, open source instagram scraper, local first instagram vault, chrome extension instagram saved posts">
+
+  <!-- Primary SEO Meta Tags -->
+  <title>Unlockt (v6.7) — Open-Source Instagram Saved Vault, Bulk Exporter & Smart Media Studio</title>
+  <meta name="title" content="Unlockt (v6.7) — Open-Source Instagram Saved Vault, Bulk Exporter & Smart Media Studio">
+  <meta name="description" content="Unlockt is a 100% free, private, local-first Chrome extension & Node.js dashboard to bulk download, export, search, and archive your entire Instagram Saved posts, reels, carousels, and audio.">
+  <meta name="keywords" content="instagram saved bulk download, export instagram bookmarks, instagram carousel downloader, instagram reels exporter, open source instagram scraper, local first instagram vault, chrome extension instagram saved posts, save instagram reels without watermark, instagram bookmark archive tool, mahmoud madi, premier tech, voxo ai">
+  <meta name="author" content="Mahmoud Madi (Digital Marketing & IT Specialist | Premier Tech & VOXO AI)">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://mahmoud-madi.github.io/unlockt-instagram-saved-chrome-extension/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mahmoud-madi.github.io/unlockt-instagram-saved-chrome-extension/">
+  <meta property="og:title" content="Unlockt (v6.7) — Instagram Saved Vault & Smart Media Studio">
+  <meta property="og:description" content="Bulk download, export, and permanently archive your Instagram Saved posts, reels, and carousels locally with zero password sharing.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/main/assets/unlockt_github_hero_banner.jpg">
+
+  <!-- Twitter Card -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://mahmoud-madi.github.io/unlockt-instagram-saved-chrome-extension/">
+  <meta property="twitter:title" content="Unlockt — Instagram Saved Vault & Media Studio">
+  <meta property="twitter:description" content="Open-source, local-first Instagram Saved downloader, 9:16 Reels player, Canvas collage generator & AI search.">
+  <meta property="twitter:image" content="https://raw.githubusercontent.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/main/assets/unlockt_github_hero_banner.jpg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Schema.org Structured Data for AI & Search Engines -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Unlockt - Instagram Saved Vault & Media Studio",
+        "operatingSystem": "Windows, macOS, Linux, Chrome OS",
+        "applicationCategory": "MultimediaApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0.00",
+          "priceCurrency": "USD"
+        },
+        "description": "Local-first Chrome extension and Node.js suite to bulk scrape, export, search, and permanently archive saved Instagram reels, posts, carousels, and audio offline.",
+        "softwareVersion": "6.7.0",
+        "license": "https://opensource.org/licenses/MIT",
+        "author": {
+          "@type": "Person",
+          "name": "Mahmoud Madi",
+          "jobTitle": "Digital Marketing & IT Specialist",
+          "worksFor": [
+            {
+              "@type": "Organization",
+              "name": "Premier Tech (For Integrated Solutions)"
+            },
+            {
+              "@type": "Organization",
+              "name": "VOXO AI (AI & Media Agency)"
+            }
+          ]
+        },
+        "downloadUrl": "https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does Unlockt download Instagram saved posts without asking for a password?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Unlockt runs as a Chrome Extension inside your authenticated Chromium browser session. It reads Instagram's internal GraphQL / web API endpoints using the cookies and CSRF tokens already present in your browser, without ever transmitting credentials."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can Unlockt export Instagram carousels and multi-slide posts?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Unlockt extracts all items (children) in carousel posts, saving every individual high-resolution photo and video alongside individual slide captions."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Unlockt work for Instagram Reels with audio?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Unlockt downloads the complete original MP4 video streams with full AAC stereo audio tracks, preserving maximum native bitrates without compression."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where is my Instagram data stored?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "100% locally on your machine in the flat-file database (data/saved.json) and local directories. Zero data is sent to external servers or cloud providers."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #090b10;
+      --card-bg: rgba(22, 27, 34, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-gradient: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      --accent-cyan: #38bdf8;
+      --accent-purple: #a855f7;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Glow Background */
+    .bg-glow {
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(220, 39, 67, 0.18) 0%, rgba(56, 189, 248, 0.08) 50%, transparent 70%);
+      filter: blur(80px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    header {
+      padding: 2rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .brand-badge {
+      background: var(--accent-gradient);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+    }
+
+    .btn-github {
+      background: #21262d;
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-github:hover {
+      background: #30363d;
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    /* Hero Section */
+    .hero {
+      max-width: 1000px;
+      margin: 3rem auto 4rem;
+      text-align: center;
+      padding: 0 1.5rem;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .gradient-text {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 750px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent-gradient);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-decoration: none;
+      box-shadow: 0 10px 25px -5px rgba(220, 39, 67, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px -5px rgba(220, 39, 67, 0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1.05rem;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* Feature Grid */
+    .features {
+      max-width: 1200px;
+      margin: 5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 3rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 2rem;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-4px);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .card h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      max-width: 850px;
+      margin: 5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .faq-item {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 1.2rem 1.5rem;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem 1.2rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* SEO Hub Links */
+    .seo-hub {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 2rem 1.5rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .seo-hub h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .seo-hub-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .seo-badge {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: #38bdf8;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .seo-badge:hover {
+      background: rgba(56, 189, 248, 0.1);
+      border-color: #38bdf8;
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 3rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 4rem;
+    }
+
+    footer a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
-  <h1>Unlockt – Instagram Saved Vault & Bulk Media Exporter</h1>
-  <p>
-    Unlockt is a 100% private, local-first, open-source suite to bulk download, export, search, and permanently archive your entire Instagram Saved collection (Reels, Carousels, Photos, Audio).
-  </p>
-  <ul>
-    <li>No password required – uses your active Chromium browser session</li>
-    <li>1-Click HTML5 Canvas photo collage generator (2x1 to 5x2 grid layouts)</li>
-    <li>Custom 9:16 vertical Reels video player with HTTP 206 Range streaming</li>
-    <li>AI Semantic Search across captions, hashtags, and creator handles</li>
-    <li>100% offline – Zero telemetry, zero external tracking</li>
-  </ul>
-  <p>
-    <strong>GitHub Repository:</strong>
-    <a href="https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension">
-      https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension
+
+  <div class="bg-glow"></div>
+
+  <!-- Header -->
+  <header>
+    <a href="#" class="brand">
+      <span>🔓 Unlockt</span>
+      <span class="brand-badge">v6.7</span>
     </a>
-  </p>
-  <p>
-    <strong>Developed by:</strong> Mahmoud Madi |
-    <strong>Partners:</strong> Premier Tech (For Integrated Solutions) &amp; VOXO AI (AI &amp; Media Agency) |
-    <strong>License:</strong> MIT
-  </p>
+    <div class="nav-links">
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#faq" class="nav-link">FAQ</a>
+      <a href="https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension" target="_blank" class="btn-github">
+        <svg height="18" width="18" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+        GitHub Repository
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-pill">
+      <span class="hero-pill-dot"></span>
+      100% Local-First &amp; Open Source (MIT)
+    </div>
+    <h1>
+      The Smart Vault for All Your <br />
+      <span class="gradient-text">Instagram Saved Media</span>
+    </h1>
+    <p class="hero-sub">
+      Bulk extract, download, search, and permanently archive all your saved posts, reels, carousels, and audio tracks directly into a private local dashboard.
+    </p>
+    <div class="hero-cta">
+      <a href="https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension" target="_blank" class="btn-primary">
+        Get Started on GitHub →
+      </a>
+      <a href="#faq" class="btn-secondary">
+        Read Knowledge Base
+      </a>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section class="features" id="features">
+    <h2 class="section-title">Engineered for Complete Ownership</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3>Zero-Password Bulk Scraping</h3>
+        <p>Uses your active Chromium browser session. Reads directly from native Instagram endpoints without ever asking for passwords or compromising credentials.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎬</div>
+        <h3>Reels 9:16 Video Player</h3>
+        <p>Custom vertical Reels media player with HTTP 206 partial streaming, scrubbing, full-screen playback, and instant original MP4 downloads.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎨</div>
+        <h3>Canvas Collage Studio</h3>
+        <p>Turn your saved photo collection into stunning moodboards and social grids with 1-click HTML5 Canvas exports in 2x1, 2x2, 3x3, and 5x2 layouts.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔍</div>
+        <h3>AI Semantic Search &amp; Tags</h3>
+        <p>Instant full-text search across captions, hashtags, creator handles, and custom tags with smart filters by post type and audio availability.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🛡️</div>
+        <h3>100% Offline &amp; Private</h3>
+        <p>All photos, videos, and JSON metadata are stored locally in your repository filesystem. Zero tracking, zero telemetry, zero cloud dependencies.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📦</div>
+        <h3>Multi-Format Data Exporter</h3>
+        <p>Export your full vault anytime in clean JSON, CSV spreadsheets, or structured ZIP archives with high-resolution original media assets.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" id="faq">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <div class="faq-question">How does Unlockt download Instagram saved posts without asking for my password?</div>
+      <div class="faq-answer">Unlockt operates as a Manifest V3 Chrome Extension inside your active browser session. It reads Instagram's internal GraphQL endpoints using the secure session cookies already present in your browser, keeping your account 100% safe.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">Can Unlockt export multi-slide Instagram carousel posts?</div>
+      <div class="faq-answer">Yes! Unlockt unpacks every slide in carousel posts, saving every individual high-resolution photo and video alongside individual slide captions and creator tags.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">Does it preserve full HD audio and video quality for Reels?</div>
+      <div class="faq-answer">Yes, Unlockt grabs direct MP4 video streams at their original resolution and bitrate with full AAC stereo audio tracks, completely free of watermarks or extra compression.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">Is Unlockt completely free and open source?</div>
+      <div class="faq-answer">Yes. Unlockt is licensed under the permissive MIT License. You can inspect the entire source code, run it completely offline, or contribute on GitHub.</div>
+    </div>
+  </section>
+
+  <!-- Knowledge Base & AI Resources Hub -->
+  <section class="seo-hub">
+    <h3>Developer &amp; AI Knowledge Base</h3>
+    <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem;">Structured resources, multi-lingual sitemaps, and LLM training documentation:</p>
+    <div class="seo-hub-links">
+      <a href="https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/llms.txt" class="seo-badge">llms.txt (AI Index)</a>
+      <a href="https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/llms-full.txt" class="seo-badge">llms-full.txt (Full AI Context)</a>
+      <a href="https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/QUESTIONS.md" class="seo-badge">QUESTIONS.md (175+ Q&amp;A Hub)</a>
+      <a href="https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/KEYWORDS.md" class="seo-badge">KEYWORDS.md (2,500+ Keywords)</a>
+      <a href="https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/FEATURES.md" class="seo-badge">FEATURES.md (Architecture)</a>
+      <a href="https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/SEO_INDEXING_PLAYBOOK.md" class="seo-badge">SEO Indexing Playbook</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      Developed with ❤️ by <strong>Mahmoud Madi</strong> (Digital Marketing &amp; IT Specialist)<br />
+      Supported by <strong>Premier Tech</strong> (For Integrated Solutions) &amp; <strong>VOXO AI</strong> (AI &amp; Media Agency)
+    </p>
+    <p style="margin-top: 8px;">
+      Released under the <a href="https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/LICENSE">MIT License</a>.
+    </p>
+  </footer>
+
 </body>
 </html>
