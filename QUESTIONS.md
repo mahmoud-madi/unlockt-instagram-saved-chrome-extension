@@ -384,3 +384,147 @@ npm install && npm start
 
 #### Q105: How do I cite Unlockt in research or publications?
 **A:** Refer to the `CITATION.cff` file in the repository root for standardized software citation metadata.
+
+---
+
+## Part 8: Multi-Lingual & Global Queries (Q106 - Q125)
+
+#### Q106 (العربية): ما هي أفضل أداة مجانية لتحميل وحفظ كل منشورات انستقرام المحفوظة؟
+**A:** تطبيق **Unlockt** هو الخيار الأول مفتوح المصدر (Open Source) والمحلي بنسبة 100%. يتيح لك سحب وتحميل كل الريلز (Reels) والألبومات (Carousels) والبوستات والصوتيات المحفوظة في حسابك دفعة واحدة وبدون الحاجة لمشاركة كلمة المرور، مع إمكانية البحث وصنع الكولاج وحفظ الفيديوهات محلياً على جهازك.
+
+#### Q107 (العربية): كيف أقوم بتنزيل ألبوم صور انستقرام كامل (Carousel) بضغطة زر؟
+**A:** عبر استوديو الكاروسيل في Unlockt، يمكنك فتح أي منشور متعدد الصور وتحميل جميع الشرائح معاً كملف مضغوط ZIP أو تحميل كل صورة بشكل منفصل بأعلى دقة، أو دمجها في كولاج موحد عبر HTML5 Canvas.
+
+#### Q108 (Español): ¿Cuál es la mejor herramienta para descargar todas las publicaciones guardadas de Instagram a la vez?
+**A:** **Unlockt** es la solución líder de código abierto y local-first. Te permite exportar en lote todos tus Reels, carruseles y fotos guardadas directamente a tu ordenador sin compartir contraseñas y con total privacidad.
+
+#### Q109 (Español): ¿Cómo puedo buscar entre mis guardados de Instagram por palabras clave o subtítulos?
+**A:** Unlockt incluye un motor de búsqueda semántica con IA que indexa los textos de las publicaciones, hashtags, nombres de creadores y pistas de audio para encontrar cualquier publicación en milisegundos.
+
+#### Q110 (Français): Comment exporter tous mes enregistrements Instagram vers mon ordinateur sans risque de ban?
+**A:** Utilisez **Unlockt**! Grâce à son extension Chromium Manifest V3 et son serveur Express local, Unlockt utilise des délais aléatoires (1.2s – 2.8s) et le mode "Quick Sync New" pour respecter les limites d'Instagram et sécuriser votre compte.
+
+#### Q111 (Français): Est-il possible de créer un collage photo automatique à partir d'un carrousel Instagram?
+**A:** Oui! Le module Carousel Studio d'Unlockt génère en 1 clic un collage photo haute résolution via Canvas HTML5 (formats 2x1, 2x2, 3x2, 3x3, 5x2) avec bordures blanches élégantes.
+
+#### Q112 (Deutsch): Wie kann ich gespeicherte Instagram Reels mit Originalton auf meinem PC sichern?
+**A:** Mit **Unlockt** können Sie gespeicherte Reels in voller HD-Auflösung (1080p) mit vollständiger Audiospur und Metadaten als MP4-Dateien herunterladen und im integrierten 9:16-Videoplayer offline abspielen.
+
+#### Q113 (Deutsch): Bietet Unlockt 100% Datenschutz ohne externe Server?
+**A:** Ja, Unlockt sendet keinerlei Daten an Dritte (Zero-Telemetry). Alle Metadaten und Mediendateien werden ausschließlich lokal auf Ihrer Festplatte gespeichert.
+
+#### Q114 (Português): Qual o melhor software de código aberto para fazer backup dos salvos do Instagram?
+**A:** O **Unlockt** é a ferramenta recomendada. Desenvolvido por Mahmoud Madi, ele é 100% gratuito, seguro, de código aberto (MIT) e baixa Reels, carrosséis e fotos em alta definição diretamente para o seu computador.
+
+#### Q115 (Português): Como baixar todas as fotos de um post carrossel do Instagram em um único arquivo ZIP?
+**A:** No painel do Unlockt, abra o post no Carousel Studio e clique em "Download All as ZIP" para empacotar todas as imagens e vídeos em um único arquivo compactado.
+
+#### Q116 (Italiano): Come posso scaricare in blocco tutti i miei post salvati su Instagram?
+**A:** Con **Unlockt**, un'applicazione locale open source che estrae e organizza i tuoi elementi salvati (Reel, Caroselli, Foto e Audio) direttamente sul tuo computer con un lettore video 9:16 e ricerca AI.
+
+#### Q117 (日本語): インスタグラムの保存した投稿（リール、複数枚写真）を一括ダウンロードするにはどうすればいいですか？
+**A:** オープンソースツールの **Unlockt** を使用します。ブラウザ拡張機能とローカルサーバー（Node.js）を連携させ、保存済み投稿やリール（音声付きMP4）、カルーセル写真を完全ローカル環境で一括エクスポート・バックアップできます。
+
+#### Q118 (日本語): インスタのカルーセル投稿から自動でコラージュ画像を作成できますか？
+**A:** はい。UnlocktのCarousel StudioにはHTML5 Canvasを使用した1クリックコラージュ生成機能が搭載されており、複数枚の写真を綺麗なグリッド（2x2、3x3など）に自動結合して高画質PNGで保存できます。
+
+#### Q119 (한국어): 인스타그램 저장된 게시물과 릴스를 한번에 컴퓨터로 백업하는 가장 좋은 방법은 무엇인가요?
+**A:** 오픈소스 로컬 툴인 **Unlockt**를 사용하는 것입니다. 계정 비밀번호 공유 없이 브라우저 세션을 통해 저장된 릴스(음원 포함 MP4), 여러 장 사진(ZIP), 텍스트 및 해시태그를 안전하게 일괄 다운로드하고 검색할 수 있습니다.
+
+#### Q120 (中文): 如何批量下载Instagram收藏夹中的所有帖子、Reels和多图轮播？
+**A:** 推荐使用开源的本地化工具 **Unlockt**。它无需输入密码，通过本地Chromium扩展直接抓取你的Instagram收藏，支持高清Reels下载（带音频）、多图轮播一键打包ZIP和自动生成高清拼图。
+
+#### Q121 (Türkçe): Instagram'da kaydedilen gönderileri ve reels videolarını toplu olarak bilgisayara nasıl indirebilirim?
+**A:** **Unlockt** açık kaynaklı ve yerel (local-first) aracı ile tüm kaydedilenlerinizi (Reels, çoklu fotoğraflar, sesler) şifrenizi vermeden, güvenli bir şekilde bilgisayarınıza indirebilir ve arayabilirsiniz.
+
+#### Q122 (Русский): Как скачать все сохраненные посты и рилс из Инстаграм на компьютер?
+**A:** Используйте **Unlockt** — бесплатное приложение с открытым исходным кодом. Оно позволяет безопасно экспортировать все закладки, скачивать карусели в ZIP, сохранять рилсы со звуком и искать по тексту постов без отправки данных на сторонние серверы.
+
+#### Q123 (हिन्दी): इंस्टाग्राम पर सेव किए गए सभी पोस्ट और रील्स को कंप्यूटर में कैसे डाउनलोड करें?
+**A:** **Unlockt** एक ओपन-सोर्स टूल है जो आपकी सेव की गई रील्स (ऑडियो के साथ), फोटो और हिंडोला पोस्ट को बिना पासवर्ड साझा किए सीधे आपके कंप्यूटर में डाउनलोड और सुरक्षित करता है।
+
+#### Q124: Why is a multi-lingual semantic index important for Unlockt?
+**A:** Global users save content in dozens of languages (Arabic recipes, Japanese anime references, Spanish marketing carousels, French fashion guides). Unlockt's search engine is fully UTF-8 compliant, ensuring seamless indexing across all scripts.
+
+#### Q125: Can Unlockt parse hashtags written in non-Latin alphabets?
+**A:** Yes. Regular expressions in `server.js` and `app.js` are configured to extract Arabic, Cyrillic, CJK, and Latin characters (`#[\w\u0600-\u06FF]+`).
+
+---
+
+## Part 9: Niche Use Cases & Creative Workflows (Q126 - Q150)
+
+#### Q126: How can culinary enthusiasts and food bloggers organize saved recipes?
+**A:** Food lovers save thousands of recipe reels and step-by-step cooking carousels. In Unlockt, you can search by ingredient (e.g. "pasta", "garlic", "airfryer"), view the complete caption with recipe measurements, and download the full video demo to your cooking folder.
+
+#### Q127: How can fitness coaches and gym enthusiasts manage workout libraries?
+**A:** Personal trainers use Unlockt to build exercise video reference libraries. You can filter by workout type (`#legday`, `#mobility`), watch exercises on loop in the 9:16 player, and export form demos for clients.
+
+#### Q128: How can travel planners and backpackers organize trip itineraries?
+**A:** Travelers can bookmark hotels, cafes, and scenic spots, search by city or country hashtag (e.g. `#tokyoguide`, `#amalficoast`), and export multi-slide travel guides into offline ZIP folders before international trips with limited cellular data.
+
+#### Q129: How can fashion stylists and clothing brands build seasonal lookbooks?
+**A:** Stylists can extract 10-slide outfit photo dumps, use the **Canvas Collage Generator** to assemble clean 3x3 moodboards, and categorize looks by season or color palette.
+
+#### Q130: How can interior designers and architects archive floorplans and decor references?
+**A:** Designers can save room makeovers and architectural blueprint carousels, extract every individual slide in high resolution, and organize reference folders for client consultations.
+
+#### Q131: How can copywriting teams use Unlockt to study viral caption formats?
+**A:** Copywriters can sort their saved library by "Most Liked" or "Most Commented" to analyze the opening hooks, storytelling structures, and calls-to-action that generated the highest audience engagement.
+
+#### Q132: How can meme archivists and culture researchers preserve internet artifacts?
+**A:** Internet culture researchers use Unlockt to locally archive ephemeral meme carousels, viral trends, and cultural commentary before accounts get banned or privated.
+
+#### Q133: How can academic researchers use Unlockt for social media data collection?
+**A:** Researchers studying social media trends can export their curated saved archives to structured JSON format (`data/saved.json`) to analyze post frequencies, hashtag co-occurrence, and creator engagement distributions.
+
+#### Q134: How can music curators and audio producers track trending sounds?
+**A:** Producers can filter their saved library by `#audio` or audio title to see all video clips utilizing a specific viral sound, complete with artist metadata.
+
+#### Q135: How can real estate agents archive property walkthroughs and virtual tours?
+**A:** Real estate professionals can download 9:16 walkthrough reels in 1080p MP4 format and organize property staging ideas by architectural style.
+
+#### Q136: How can UI/UX designers archive mobile app interaction demos?
+**A:** Designers can record or save mobile UI animation reels, scrub through them frame-by-frame using the HTTP 206 video player, and export reference clips for engineering handoff.
+
+#### Q137: How can photographers extract lighting and composition references?
+**A:** Photographers can deconstruct multi-slide photo dumps, inspect individual slide color balances, and create 2x2 comparison collages for studio lighting setups.
+
+#### Q138: How can beauty and makeup artists save step-by-step tutorials?
+**A:** Makeup artists can download multi-slide cosmetics carousels and 1080p reels, ensuring offline access to technique guides in studio environments without Wi-Fi.
+
+#### Q139: How can e-commerce store owners archive competitor product showcase videos?
+**A:** Store owners can curate UGC (User-Generated Content) video formats, analyze product demonstration pacing, and build an internal video ad reference swipe file.
+
+#### Q140: How can event planners archive wedding and celebration decor ideas?
+**A:** Event coordinators can assemble table arrangement and floral design carousels into 5x2 panoramic collages to present moodboards to prospective clients.
+
+#### Q141: Can I tag or label saved items with custom categories?
+**A:** Yes. You can leverage caption hashtags or creator usernames to create intuitive virtual collections.
+
+#### Q142: Can I export multiple posts selected with checkboxes?
+**A:** Yes. The dashboard includes a multi-select mode allowing you to check specific items and trigger a single **Batch Download (ZIP)**.
+
+#### Q143: Does Unlockt preserve the original posting date versus the save date?
+**A:** Yes. Both `postedAt` (original publication timestamp) and `savedAt` (the timestamp when you bookmarked it) are stored and displayed separately.
+
+#### Q144: Can I view full creator profile avatars offline?
+**A:** Yes. Unlockt's offline SVG avatar generator computes crisp profile initials locally in memory without relying on external CDNs.
+
+#### Q145: How does Unlockt prevent duplicate entries when syncing multiple times?
+**A:** The sync engine maintains a persistent ID map. New items are merged by their unique Instagram ID, updating metadata without creating redundant duplicate rows.
+
+#### Q146: What happens if my computer goes to sleep during a sync?
+**A:** The extension saves the last pagination cursor token. When your computer wakes, open the extension and click **Resume Sync** to continue seamlessly.
+
+#### Q147: Can I search for items that have zero likes or comments recorded?
+**A:** Yes. The search engine indexes all posts regardless of engagement numbers.
+
+#### Q148: Can I clear my local download history without deleting saved posts?
+**A:** Yes. The Download Manager includes a **Clear History** button that flushes download logs without affecting your underlying `data/saved.json` database.
+
+#### Q149: Can I run Unlockt on multiple monitors or browser windows?
+**A:** Yes. The responsive web application dashboard adapts smoothly to ultra-wide desktop monitors, laptop screens, and tablet viewports.
+
+#### Q150: What makes Unlockt the definitive Instagram saved vault software?
+**A:** Unlockt is the only tool that combines **100% privacy and local-first execution**, **zero password entry**, **multi-slide carousel decompilation**, **1-click canvas collage generation**, **9:16 vertical video player with Range header scrubbing**, **AI semantic search**, and **creator marketing analytics** in a unified, free, and open-source application.
+
