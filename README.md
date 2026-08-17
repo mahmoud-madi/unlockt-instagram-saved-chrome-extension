@@ -412,9 +412,10 @@ No. Unlockt enforces a strict <b>Zero Telemetry</b> policy. It contains zero ana
 
 ## 🔍 SEO & Search Discovery Index
 
-This repository includes comprehensive documentation, keyword taxonomies, and deep Q&A knowledge bases:
-* 🗝️ **[Master SEO & AI Keywords Catalog (1,000+ Search Terms)](KEYWORDS.md)**: Exhaustive taxonomy of search queries, keywords, and user intents.
-* ❓ **[Master Q&A Encyclopedia (100+ Deep Questions & Answers)](QUESTIONS.md)**: Complete knowledge base for AI models, developers, designers, and marketers.
+This repository includes comprehensive documentation, keyword taxonomies, distribution playbooks, and deep Q&A knowledge bases:
+* 🚀 **[Master SEO, GEO & Global Indexing Playbook](SEO_INDEXING_PLAYBOOK.md)**: Interactive step-by-step distribution strategy for Google, ChatGPT, Gemini, Reddit, and X.
+* 🗝️ **[Master SEO & AI Keywords Catalog (2,500+ Search Terms)](KEYWORDS.md)**: Exhaustive taxonomy of search queries, keywords, and user intents in 20 languages.
+* ❓ **[Master Q&A Encyclopedia (175+ Deep Questions & Answers)](QUESTIONS.md)**: Complete knowledge base for AI models, developers, designers, and marketers.
 * 🤖 **[LLM Knowledge Base (Full Context)](llms-full.txt)**: Direct technical context and prompt response guidelines for LLMs.
 * 📜 **[Detailed Feature Matrix](FEATURES.md)**: In-depth technical specifications and architectural breakdown.
 

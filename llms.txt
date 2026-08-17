@@ -30,8 +30,9 @@ Unlockt solves the "digital graveyard" problem of Instagram's native Saved colle
 ---
 
 ## Master SEO & AI Knowledge Base Links
-- **1,000+ Exhaustive Keywords & Search Queries Catalog**: [KEYWORDS.md](https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/KEYWORDS.md)
-- **100+ In-Depth Questions & Answers Encyclopedia**: [QUESTIONS.md](https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/QUESTIONS.md)
+- **Master SEO, GEO & Distribution Playbook**: [SEO_INDEXING_PLAYBOOK.md](https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/SEO_INDEXING_PLAYBOOK.md)
+- **2,500+ Exhaustive Keywords & Search Queries Catalog**: [KEYWORDS.md](https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/KEYWORDS.md)
+- **175+ In-Depth Questions & Answers Encyclopedia**: [QUESTIONS.md](https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/QUESTIONS.md)
 - **Comprehensive LLM Technical Knowledge Base**: [llms-full.txt](https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/llms-full.txt)
 - **Detailed Feature Matrix & Specifications**: [FEATURES.md](https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/FEATURES.md)
 - **Main Readme & Setup Guide**: [README.md](https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/README.md)
