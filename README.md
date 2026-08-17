@@ -357,26 +357,66 @@ The local Express server (`server.js`) runs at `http://localhost:3000`:
 <details>
 <summary><b>Q1: Is Unlockt safe to use with my Instagram account?</b></summary>
 <br>
-Yes. Unlockt operates locally inside your existing browser session using your authentic cookies. It never asks for or stores your password, and it does not transmit data to external servers. Furthermore, it incorporates randomized human-like jitter delays (1.2s – 2.8s) and the incremental "Quick Sync New" algorithm to minimize API requests.
+Yes. Unlockt operates locally inside your existing Chromium browser session using your authentic session cookies. It never asks for, transmits, or stores your account password, and it makes zero calls to third-party cloud servers. Furthermore, it incorporates randomized humanized jitter delays (1.2s – 2.8s) and the incremental "Quick Sync New" algorithm to minimize API requests and prevent action blocks.
 </details>
 
 <details>
-<summary><b>Q2: How does the 1-Click Collage Maker work?</b></summary>
+<summary><b>Q2: Can I download 5,000+ or 10,000+ saved items without getting rate limited?</b></summary>
 <br>
-When you open a carousel post in the Carousel Studio, Unlockt extracts all individual high-resolution slides and renders them onto an HTML5 <code>&lt;canvas&gt;</code> element. It automatically arranges them in a clean geometric grid with crisp 4px white borders and enables instant PNG download.
+Yes! Unlockt was specifically engineered for power users and digital hoarders. The extension implements auto-resume pagination via stored cursor bookmarks. If you pause or encounter temporary Instagram rate limits, simply wait a few minutes and click <b>Resume Sync</b> to continue from the exact last saved item.
 </details>
 
 <details>
-<summary><b>Q3: Can I transfer my saved vault to another computer?</b></summary>
+<summary><b>Q3: How does the 1-Click Collage Maker work?</b></summary>
 <br>
-Yes! Use the <b>Export Master Vault</b> button in the dashboard to generate a single <code>vault-master-database-backup.json</code> file. On your other computer, simply click <b>Import Master Vault</b> to restore all content, tags, and history.
+When you open a carousel post in the Carousel Studio, Unlockt extracts all individual high-resolution slides and renders them onto an HTML5 <code>&lt;canvas&gt;</code> element. It automatically selects the optimal layout (2x1, 2x2, 2x3, 3x3, 5x2) with clean 4px white borders and generates a downloadable high-DPI PNG image.
 </details>
 
 <details>
-<summary><b>Q4: What happens if an Instagram video link expires?</b></summary>
+<summary><b>Q4: Can I download multi-slide carousels as a ZIP archive?</b></summary>
 <br>
-Instagram CDN links expire over time. Unlockt provides local media caching so you can save videos and thumbnails permanently to your local disk (<code>videos/</code> and <code>thumbnails/</code>) during or after sync.
+Yes. The Carousel Studio includes an integrated <b>Download All as ZIP</b> button powered by client-side JSZip. It bundles all image and video slides into a single clean archive with standardized filenames (e.g. <code>@creator_shortcode_slide1.jpg</code>).
 </details>
+
+<details>
+<summary><b>Q5: Can I play and download Instagram Reels with audio in Full HD 9:16?</b></summary>
+<br>
+Yes. Unlockt features a dedicated Reels Inspector with a custom 9:16 vertical video player supporting looping, volume memory, smooth scrubbing via HTTP <code>206 Partial Content</code> Range headers, and 1-click Full HD MP4 downloads with original audio.
+</details>
+
+<details>
+<summary><b>Q6: Can I search my saved posts by caption text, hashtags, or creator?</b></summary>
+<br>
+Yes. Unlockt precomputes a searchable token index for every item, enabling instant multi-term search across captions, hashtags, creator usernames, audio track titles, and inferred visual concepts with sub-millisecond response times.
+</details>
+
+<details>
+<summary><b>Q7: Can I transfer my saved vault to another computer?</b></summary>
+<br>
+Yes! Use the <b>Export Master Vault</b> button in the dashboard to generate a single <code>vault-master-database-backup.json</code> file. On your other computer, simply install Unlockt and click <b>Import Master Vault</b> to restore all content, tags, and history.
+</details>
+
+<details>
+<summary><b>Q8: What happens if a saved post or creator account is deleted on Instagram?</b></summary>
+<br>
+When an Instagram creator deletes their account or archives a post, it vanishes from Instagram's native interface. However, once synced and cached in Unlockt, your local copy remains permanently preserved in your local vault on your computer (<code>data/saved.json</code>, <code>videos/</code>, <code>thumbnails/</code>).
+</details>
+
+<details>
+<summary><b>Q9: Does Unlockt send my data to any third-party or telemetry servers?</b></summary>
+<br>
+No. Unlockt enforces a strict <b>Zero Telemetry</b> policy. It contains zero analytics beacons, zero third-party tracking scripts, and generates all user profile avatars locally using offline SVG Data URIs.
+</details>
+
+---
+
+## 🔍 SEO & Search Discovery Index
+
+This repository is optimized for search engines, AI models, and developers seeking:
+* **Bulk Scraping & Archiving**: *Bulk download Instagram saved posts, export Instagram bookmarks, scrape saved Reels, backup Instagram saved media to local drive, Instagram saved collection scraper, batch export Instagram bookmarks to JSON.*
+* **Carousel & Media Management**: *Download Instagram carousel all slides, export Instagram photo dump to ZIP, generate photo collage from Instagram carousel, multi-slide Instagram image separator.*
+* **Reels & Video Archiving**: *Download saved Instagram Reels with audio, vertical 9:16 video player for Instagram saves, stream Instagram video range headers HTTP 206, save audio track metadata from Instagram Reels.*
+* **Privacy & Self-Hosted**: *100% private Instagram downloader, open source Instagram saved scraper, local-first social media vault, zero telemetry Instagram backup, safe Instagram bookmark exporter without ban.*
 
 ---
 
@@ -393,3 +433,4 @@ Instagram CDN links expire over time. Unlockt provides local media caching so yo
 ## 📄 License
 
 This project is open-source software licensed under the **[MIT License](LICENSE)**.
+
