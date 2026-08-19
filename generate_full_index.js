@@ -944,7 +944,6 @@ ${escapeHtml(llmsFullRaw.slice(0, 1500))}...
         <a href="https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/QUESTIONS.md" target="_blank" class="seo-badge">QUESTIONS.md (175+ Q&amp;A Raw)</a>
         <a href="https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/KEYWORDS.md" target="_blank" class="seo-badge">KEYWORDS.md (2,500+ Keywords Raw)</a>
         <a href="https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/FEATURES.md" target="_blank" class="seo-badge">FEATURES.md (Technical Specs)</a>
-        <a href="https://github.com/mahmoud-madi/unlockt-instagram-saved-chrome-extension/blob/main/SEO_INDEXING_PLAYBOOK.md" target="_blank" class="seo-badge">SEO Indexing Playbook</a>
       </div>
     </section>
   </div>

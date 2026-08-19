@@ -49,3 +49,7 @@ tmp/
 temp/
 *.tmp
 *.temp
+
+# Private Internal Marketing & SEO Playbooks
+SEO_INDEXING_PLAYBOOK.md
+SEO_INDEXING_PLAYBOOK*.md
