@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Unlockt Instagram Saves Manager</title>
+    <style>
+        :root {
+            --bg-color: #0f1117;
+            --card-bg: #1a1d26;
+            --text-primary: #f0f2f8;
+            --text-secondary: #9ba1b0;
+            --accent: #e1306c;
+            --accent-gradient: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+            --border-color: rgba(255, 255, 255, 0.08);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 24px;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 28px;
+            margin: 0 0 10px 0;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .meta {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        h2 {
+            font-size: 20px;
+            color: #ffffff;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--accent);
+            padding-left: 10px;
+        }
+        p, li {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+        strong {
+            color: var(--text-primary);
+        }
+        ul {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(225, 48, 108, 0.15);
+            color: #ff70a6;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .contact-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 16px 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        a {
+            color: #ff70a6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="badge">🔒 100% LOCAL-FIRST PRIVACY POLICY</span>
+            <h1>Privacy Policy for Unlockt</h1>
+            <div class="meta">
+                <strong>Product:</strong> Unlockt - Instagram Saves Manager<br>
+                <strong>Developer:</strong> Mahmoud Madi &bull; <strong>Contact:</strong> mahmoudmaddii@gmail.com<br>
+                <strong>Effective Date:</strong> August 27, 2026
+            </div>
+        </div>
+
+        <h2>1. Overview & Core Philosophy</h2>
+        <p><strong>Unlockt - Instagram Saves Manager</strong> ("we", "our", or "the extension") is a browser extension created to assist users in exploring, organizing, and archiving their saved Instagram content.</p>
+        <p>We are firmly committed to protecting your privacy. <strong>Unlockt operates entirely client-side (local-first).</strong> All data indexing, search, media processing, and storage take place strictly inside your local browser. We do NOT operate external tracking servers or cloud databases.</p>
+
+        <h2>2. Data We Process Locally</h2>
+        <p>To provide its services, Unlockt processes the following data locally on your device:</p>
+        <ul>
+            <li><strong>Instagram Session Cookies:</strong> Accesses active Instagram session cookies (<code>sessionid</code>, <code>ds_user_id</code>, <code>csrftoken</code>) solely to authenticate requests to Instagram's official REST and GraphQL endpoints. <strong>Your Instagram password is never accessed or requested.</strong></li>
+            <li><strong>Saved Post Metadata:</strong> Reads captions, hashtags, creator usernames, timestamps, like/comment counts, and CDN thumbnail links for content you have saved on Instagram.</li>
+            <li><strong>Local Media Storage:</strong> Saves your metadata and download logs directly into your browser's local <strong>IndexedDB</strong> (<code>VaultDB</code>) and <strong>LocalStorage</strong>.</li>
+        </ul>
+
+        <h2>3. How We Use Your Data</h2>
+        <p>All processed information is used exclusively to deliver the extension's local features:</p>
+        <ul>
+            <li>Organizing and displaying your saved content in your personal local dashboard.</li>
+            <li>Enabling offline semantic search, creator analytics, and hashtag collections.</li>
+            <li>Generating photo collages, inspecting video reels, and batch exporting archives.</li>
+        </ul>
+
+        <h2>4. Data Storage, Security & Retention</h2>
+        <ul>
+            <li><strong>100% Local Storage:</strong> All saved items and metadata remain on your device. Zero data is uploaded to our servers or any cloud database.</li>
+            <li><strong>Data Retention & Deletion:</strong> You have complete control over your data. You can delete all stored records at any time using the dashboard's "Hard Refresh / Reset" option, or by uninstalling the extension from Google Chrome.</li>
+        </ul>
+
+        <h2>5. Third-Party Sharing & Tracking</h2>
+        <ul>
+            <li><strong>No Data Selling or Sharing:</strong> We do NOT sell, rent, monetize, or transmit user data to any third party.</li>
+            <li><strong>No External Telemetry:</strong> The extension does NOT include Google Analytics, advertising pixels, or third-party tracking scripts.</li>
+            <li>Network requests occur strictly between your browser and official Instagram servers (<code>*.instagram.com</code>, <code>*.cdninstagram.com</code>, <code>*.fbcdn.net</code>).</li>
+        </ul>
+
+        <h2>6. Permissions Justification</h2>
+        <ul>
+            <li><code>cookies</code>: Used to authenticate requests with your existing Instagram login session without requiring password entry.</li>
+            <li><code>storage</code> & <code>unlimitedStorage</code>: Used to store saved metadata and history records in IndexedDB.</li>
+            <li><code>downloads</code>: Used to save media files (photos, reels, ZIP archives) directly to your computer.</li>
+            <li><code>activeTab</code> & <code>scripting</code>: Used to communicate with the local dashboard and display status indicators.</li>
+            <li>Host Permissions: Used to fetch saved metadata and media streams directly from Instagram CDN endpoints.</li>
+        </ul>
+
+        <h2>7. Contact Information</h2>
+        <div class="contact-box">
+            <p style="margin:0;">If you have any questions or feedback regarding this Privacy Policy, please contact:</p>
+            <p style="margin: 8px 0 0 0;"><strong>Developer:</strong> Mahmoud Madi<br>
+            <strong>Email:</strong> <a href="mailto:mahmoudmaddii@gmail.com">mahmoudmaddii@gmail.com</a></p>
+        </div>
+    </div>
+</body>
+</html>
