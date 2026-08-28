@@ -417,30 +417,20 @@ async function startFullSync(resume = false, incremental = false) {
         if (resume) {
             cursorData = await getSyncCursor();
             console.log('[RESUME] Loaded cursor data:', cursorData);
-            if (cursorData && (cursorData.cursor || cursorData.graphqlCursor)) {
-                syncState.currentType = `Resuming from saved position (${cursorData.itemCount || 'vault'} items)...`;
-            }
         }
 
         // 1. Fetch saved posts via REST API
         syncState.currentType = resume ? 'Continuing fetch...' : (incremental ? 'Fetching new saves...' : 'Fetching saved posts...');
         syncState.progress = 15;
 
-        let restCursor = (resume && cursorData && cursorData.mode === 'rest') ? cursorData.cursor : (resume && cursorData?.cursor ? cursorData.cursor : null);
-        let restFinished = false;
+        const restCursor = (resume && cursorData && cursorData.mode === 'rest') ? cursorData.cursor : (resume ? cursorData?.cursor : null);
+        const restResult = await fetchSavedPosts(userId, restCursor, incremental, loginStatus);
 
-        if (!cursorData || cursorData.mode !== 'graphql') {
-            const restResult = await fetchSavedPosts(userId, restCursor, incremental, loginStatus);
-            restFinished = !restResult.hasMore;
-        } else {
-            restFinished = true;
-        }
+        syncState.progress = 50;
 
-        syncState.progress = 55;
-
-        // 2. Fetch saved reels feed (catches dedicated reels)
+        // 2. Fetch saved reels feed
         if (!incremental) {
-            syncState.currentType = 'Checking dedicated reels feed...';
+            syncState.currentType = 'Checking reels feed...';
             try {
                 await fetchSavedReels(userId, loginStatus);
             } catch (e) {
@@ -448,17 +438,17 @@ async function startFullSync(resume = false, incremental = false) {
             }
         }
 
-        syncState.progress = 75;
+        syncState.progress = 70;
 
-        // 3. Deep History Scraper via GraphQL (fetches older saves past 2025 into 2024, 2023, 2022, 2021)
-        if (!incremental && (restFinished || (cursorData && cursorData.mode === 'graphql'))) {
-            syncState.currentType = 'Fetching older historical saves (2024 & earlier)...';
-            console.log('[DEEP HISTORY] Starting GraphQL historical pagination...');
+        // 3. Deep History Scraper via GraphQL (Fetches older history from previous years)
+        if (!incremental) {
+            syncState.currentType = 'Fetching older historical saves (GraphQL)...';
+            console.log('[DEEP HISTORY] Running GraphQL historical fetch...');
             const gqlCursor = (cursorData && cursorData.graphqlCursor) ? cursorData.graphqlCursor : null;
             try {
                 await fetchSavedViaGraphQL(userId, gqlCursor, loginStatus);
             } catch (e) {
-                console.log('GraphQL deep fetch note:', e.message);
+                console.log('GraphQL fetch note:', e.message);
             }
         }
 
@@ -535,7 +525,7 @@ async function fetchSavedPosts(userId, resumeFromCursor = null, incremental = fa
     let lastValidMaxId = resumeFromCursor;
     let hasMore = true;
     let attempts = 0;
-    const maxAttempts = 350; // High limit to ensure complete history
+    const maxAttempts = 350;
     let consecutiveDuplicates = 0;
     const duplicateThreshold = 5;
 
@@ -646,16 +636,14 @@ async function fetchSavedPosts(userId, resumeFromCursor = null, incremental = fa
         }
     }
 
-    // When REST finishes, set mode to graphql so Continue Sync moves to deep history
-    if (!hasMore) {
-        const curVault = await VaultDB.getAllPosts();
-        await saveSyncCursor({
-            cursor: lastValidMaxId,
-            mode: 'graphql',
-            graphqlCursor: null,
-            itemCount: curVault.length
-        });
-    }
+    // Always preserve cursor checkpoint for continue sync
+    const curVault = await VaultDB.getAllPosts();
+    await saveSyncCursor({
+        cursor: lastValidMaxId,
+        mode: hasMore ? 'rest' : 'graphql',
+        graphqlCursor: null,
+        itemCount: curVault.length
+    });
 
     return { items: allItems, hasMore, nextMaxId: lastValidMaxId };
 }
@@ -704,7 +692,7 @@ async function fetchSavedReels(userId, loginStatus = null) {
     }
 }
 
-// Deep History Fetch via GraphQL API (fetches older saves past 2025 into 2024, 2023, 2022)
+// Deep History Fetch via GraphQL API (fetches older saves from previous years)
 async function fetchSavedViaGraphQL(userId, resumeCursor = null, loginStatus = null) {
     const allItems = [];
     let cursor = resumeCursor;
