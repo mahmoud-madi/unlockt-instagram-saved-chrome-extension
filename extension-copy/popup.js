@@ -329,7 +329,7 @@ function startProgressPolling() {
 
                 if (state.error) {
                     showErrorState(state.error);
-                } else if (state.isFinished || state.progress === 100 || state.lastResult) {
+                } else if (state.isFinished === true && state.isRunning === false && state.lastResult) {
                     showCompleteState(state.lastResult || {
                         count: state.total || 0,
                         posts: state.total || 0,

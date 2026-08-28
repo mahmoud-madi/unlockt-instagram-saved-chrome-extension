@@ -36,8 +36,17 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     console.log('Received message:', request.action);
 
     if (request.action === 'startSync') {
-        // Store options
-        syncState.options.downloadMedia = request.options?.downloadMedia !== false;
+        // IMMEDIATELY reset syncState BEFORE any async work
+        syncState = {
+            isRunning: true,
+            isFinished: false,
+            progress: 5,
+            total: 0,
+            currentType: 'Starting sync...',
+            error: null,
+            lastResult: null,
+            options: { downloadMedia: request.options?.downloadMedia !== false }
+        };
 
         startFullSync(false) // Fresh sync
             .then(result => {
@@ -53,14 +62,18 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     if (request.action === 'continueSync') {
-        // Store options
-        syncState.options.downloadMedia = request.options?.downloadMedia !== false;
-        
-        // Continue from last saved position
-        if (syncState.isRunning) {
-            console.log('Resetting stuck sync state');
-            syncState.isRunning = false;
-        }
+        // IMMEDIATELY reset syncState BEFORE any async work
+        // This prevents the popup poller from seeing stale isFinished/lastResult
+        syncState = {
+            isRunning: true,
+            isFinished: false,
+            progress: 5,
+            total: 0,
+            currentType: 'Resuming sync...',
+            error: null,
+            lastResult: null,
+            options: { downloadMedia: request.options?.downloadMedia !== false }
+        };
 
         startFullSync(true, false) // Resume sync, not incremental
             .then(result => {
@@ -76,14 +89,17 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     if (request.action === 'syncNewOnly') {
-        // Store options
-        syncState.options.downloadMedia = request.options?.downloadMedia !== false;
-
-        // Only sync new content (incremental)
-        if (syncState.isRunning) {
-            console.log('Resetting stuck sync state');
-            syncState.isRunning = false;
-        }
+        // IMMEDIATELY reset syncState BEFORE any async work
+        syncState = {
+            isRunning: true,
+            isFinished: false,
+            progress: 5,
+            total: 0,
+            currentType: 'Checking for new saves...',
+            error: null,
+            lastResult: null,
+            options: { downloadMedia: request.options?.downloadMedia !== false }
+        };
 
         startFullSync(false, true) // Fresh start but incremental mode
             .then(result => {
