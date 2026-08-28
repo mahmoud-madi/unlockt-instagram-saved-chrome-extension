@@ -372,10 +372,49 @@ function showErrorState(msg) {
     showState('error');
 }
 
+async function updateReadyStateUI() {
+    try {
+        const resumeInfo = document.getElementById('resumeInfo');
+        const continueSyncBtn = document.getElementById('continueSyncBtn');
+        const resumeItemCount = document.getElementById('resumeItemCount');
+        const syncBtnText = document.getElementById('syncBtnText');
+
+        let count = 0;
+        const stored = await chrome.storage.local.get(['savedContentCount', 'syncProgress', 'lastSyncResult']);
+        count = stored?.savedContentCount || stored?.lastSyncResult?.count || stored?.syncProgress || 0;
+
+        if (!count && typeof VaultDB !== 'undefined') {
+            try {
+                await VaultDB.init();
+                const posts = await VaultDB.getAllPosts();
+                count = posts.length;
+            } catch (e) {}
+        }
+
+        if (count > 0) {
+            if (resumeInfo) resumeInfo.classList.remove('hidden');
+            if (continueSyncBtn) {
+                continueSyncBtn.classList.remove('hidden');
+                continueSyncBtn.style.display = 'flex';
+            }
+            if (resumeItemCount) resumeItemCount.textContent = count;
+            if (syncBtnText) syncBtnText.textContent = 'Start Fresh Sync';
+        } else {
+            if (resumeInfo) resumeInfo.classList.add('hidden');
+            if (continueSyncBtn) {
+                continueSyncBtn.classList.add('hidden');
+                continueSyncBtn.style.display = 'none';
+            }
+            if (syncBtnText) syncBtnText.textContent = 'Sync Saved Content';
+        }
+    } catch (e) {
+        console.log('Ready state UI update note:', e);
+    }
+}
+
 function showState(state) {
     console.log('Showing state:', state);
     
-    // Normalize aliases
     let targetId = state + 'State';
     if (state === 'syncConfirm' || state === 'confirmSync') {
         targetId = 'confirmSyncState';
@@ -397,10 +436,14 @@ function showState(state) {
         el.style.display = 'none';
     });
 
-    let targetEl = document.getElementById(targetId) || document.getElementById(state + 'State') || document.getElementById('readyState');
+    const targetEl = document.getElementById(targetId);
     if (targetEl) {
         targetEl.classList.add('active');
         targetEl.style.display = 'block';
+    }
+
+    if (state === 'ready') {
+        updateReadyStateUI();
     }
 }
 

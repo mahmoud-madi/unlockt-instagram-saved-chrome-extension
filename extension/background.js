@@ -417,6 +417,33 @@ async function startFullSync(resume = false, incremental = false) {
         if (resume) {
             cursorData = await getSyncCursor();
             console.log('[RESUME] Loaded cursor data:', cursorData);
+
+            // If no explicit cursor was saved in storage, find the oldest item in VaultDB
+            if (!cursorData || (!cursorData.cursor && !cursorData.graphqlCursor)) {
+                try {
+                    const vaultPosts = await VaultDB.getAllPosts();
+                    if (vaultPosts && vaultPosts.length > 0) {
+                        // Find oldest post by date/timestamp
+                        const sortedPosts = vaultPosts.filter(p => p.postedAt || p.id).sort((a, b) => {
+                            const dateA = new Date(a.postedAt || 0).getTime();
+                            const dateB = new Date(b.postedAt || 0).getTime();
+                            return dateA - dateB;
+                        });
+                        const oldestPost = sortedPosts[0];
+                        if (oldestPost) {
+                            console.log('[RESUME] Found oldest vault post:', oldestPost.id, oldestPost.postedAt);
+                            cursorData = {
+                                cursor: oldestPost.id,
+                                mode: 'rest',
+                                graphqlCursor: null,
+                                itemCount: vaultPosts.length
+                            };
+                        }
+                    }
+                } catch (e) {
+                    console.log('[RESUME] Vault inspection note:', e.message);
+                }
+            }
         }
 
         // 1. Fetch saved posts via REST API
