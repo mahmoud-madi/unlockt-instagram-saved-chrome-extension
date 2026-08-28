@@ -392,7 +392,7 @@ async function startFullSync(resume = false, incremental = false) {
 
     // Reset cursor ONLY on explicit fresh sync
     if (!resume && !incremental) {
-        await chrome.storage.local.remove(['syncCursor', 'syncProgress', 'syncTimestamp']);
+        await chrome.storage.local.remove(['syncCursor', 'syncProgress', 'syncTimestamp', 'syncPhase', 'syncGraphqlCursor']);
     }
 
     syncState = {
@@ -416,33 +416,59 @@ async function startFullSync(resume = false, incremental = false) {
 
         const userId = loginStatus.userId;
         let resumeCursor = null;
+        let resumePhase = 'rest';
+        let resumeGraphqlCursor = null;
 
         // If resuming, get the saved cursor
         if (resume) {
             console.log('[RESUME] Attempting to load saved cursor...');
             const cursorData = await getSyncCursor();
-            console.log('[RESUME] Got cursor data:', cursorData);
+            console.log('[RESUME] Got cursor data:', JSON.stringify(cursorData));
 
-            if (cursorData && cursorData.cursor) {
-                resumeCursor = cursorData.cursor;
+            if (cursorData) {
+                resumePhase = cursorData.phase || 'rest';
+                resumeGraphqlCursor = cursorData.graphqlCursor || null;
+                if (cursorData.cursor) {
+                    resumeCursor = cursorData.cursor;
+                    console.log('[RESUME] Will resume from cursor:', resumeCursor.substring(0, 50) + '...');
+                }
                 syncState.currentType = `Resuming from saved position (${cursorData.itemCount || 0} items)...`;
-                console.log('[RESUME] Will resume from cursor:', resumeCursor.substring(0, 50) + '...');
             } else {
                 console.log('[RESUME] No saved cursor found, starting fresh sync...');
                 syncState.currentType = 'Starting sync...';
             }
         }
 
-        // 1. Fetch saved posts (all photos, carousels, video posts)
-        syncState.currentType = resume && resumeCursor ? 'Continuing fetch...' : (incremental ? 'Fetching new saves...' : 'Fetching saved posts...');
-        syncState.progress = 15;
-        console.log('Fetching saved posts (batch mode)...');
+        // PHASE 1: Fetch saved posts via REST API (skip if resume phase is graphql)
+        if (resumePhase !== 'graphql') {
+            syncState.currentType = resume && resumeCursor ? 'Continuing fetch...' : (incremental ? 'Fetching new saves...' : 'Fetching saved posts...');
+            syncState.progress = 15;
+            console.log('Fetching saved posts (REST API)...');
 
-        const posts = await fetchSavedPosts(userId, resumeCursor, incremental, loginStatus);
+            const posts = await fetchSavedPosts(userId, resumeCursor, incremental, loginStatus);
+            console.log('REST API returned', posts.length, 'items');
+        } else {
+            console.log('[RESUME] Skipping REST (already exhausted), going straight to GraphQL...');
+        }
 
-        syncState.progress = 50;
+        syncState.progress = 40;
 
-        // 2. Fetch saved reels feed
+        // PHASE 2: Fetch older history via GraphQL (always run for non-incremental, or resume from graphql phase)
+        if (!incremental) {
+            syncState.currentType = 'Fetching older saved content (deep history)...';
+            console.log('[DEEP HISTORY] Running GraphQL deep history fetch...');
+            try {
+                const gqlCursor = resumeGraphqlCursor || null;
+                const gqlItems = await fetchSavedViaGraphQL(userId, gqlCursor, loginStatus);
+                console.log('[DEEP HISTORY] GraphQL returned', gqlItems.length, 'items');
+            } catch (e) {
+                console.log('GraphQL deep history note:', e.message);
+            }
+        }
+
+        syncState.progress = 65;
+
+        // PHASE 3: Fetch saved reels feed
         syncState.currentType = 'Checking for reels...';
         try {
             const reels = await fetchSavedReels(userId);
@@ -457,9 +483,9 @@ async function startFullSync(resume = false, incremental = false) {
             console.log('Could not fetch reels:', e.message);
         }
 
-        syncState.progress = 75;
+        syncState.progress = 80;
 
-        // 3. Fetch saved audio
+        // PHASE 4: Fetch saved audio
         syncState.currentType = 'Checking for audio...';
         try {
             const audio = await fetchSavedAudio(userId);
@@ -474,7 +500,7 @@ async function startFullSync(resume = false, incremental = false) {
         syncState.progress = 95;
         syncState.currentType = 'Sync complete!';
 
-        // Read ACTUAL unique items directly from VaultDB to guarantee 100% matching numbers
+        // Read ACTUAL unique items directly from VaultDB
         const finalVaultItems = await VaultDB.getAllPosts();
         const postCount = finalVaultItems.filter(i => i.type === 'post' || i.type === 'carousel').length;
         const reelCount = finalVaultItems.filter(i => i.type === 'reel').length;
@@ -632,7 +658,7 @@ async function fetchSavedPosts(userId, resumeFromCursor = null, incremental = fa
 
             // Save cursor checkpoint so we can resume
             if (maxId) {
-                await saveSyncCursor(maxId, allItems.length);
+                await saveSyncCursor(maxId, allItems.length, 'rest', null);
                 console.log(`Saved progress: ${allItems.length} items, cursor: ${maxId}`);
             }
 
@@ -644,26 +670,35 @@ async function fetchSavedPosts(userId, resumeFromCursor = null, incremental = fa
             console.error('Error fetching page:', error);
             syncState.currentType = `Error on page ${attempts + 1}, stopping...`;
             if (maxId) {
-                await saveSyncCursor(maxId, allItems.length);
+                await saveSyncCursor(maxId, allItems.length, 'rest', null);
             }
             break;
         }
     }
 
-    // Save final cursor for future continuation if available
-    if (maxId) {
-        await saveSyncCursor(maxId, allItems.length);
+    // Save cursor with correct phase tracking
+    if (hasMore && maxId) {
+        // REST has more pages - save REST cursor
+        await saveSyncCursor(maxId, allItems.length, 'rest', null);
+        syncState.currentType = `Fetched ${allItems.length} items. More available - use "Continue Sync" later.`;
+    } else {
+        // REST is exhausted - mark phase as 'graphql' so Continue Sync skips REST
+        console.log('[REST] REST API exhausted. Marking phase as graphql for future Continue Sync.');
+        const curVault = await VaultDB.getAllPosts();
+        await saveSyncCursor(null, curVault.length, 'graphql', null);
     }
 
     return allItems;
 }
 
-// Save sync cursor for resumability
-async function saveSyncCursor(cursor, itemCount) {
+// Save sync cursor for resumability - tracks BOTH REST and GraphQL phases
+async function saveSyncCursor(cursor, itemCount, phase, graphqlCursor) {
     try {
         await chrome.storage.local.set({
-            syncCursor: cursor,
-            syncProgress: itemCount,
+            syncCursor: cursor || null,
+            syncProgress: itemCount || 0,
+            syncPhase: phase || 'rest',        // 'rest' or 'graphql'
+            syncGraphqlCursor: graphqlCursor || null,
             syncTimestamp: Date.now()
         });
     } catch (e) {}
@@ -672,12 +707,14 @@ async function saveSyncCursor(cursor, itemCount) {
 // Get saved sync cursor
 async function getSyncCursor() {
     try {
-        const data = await chrome.storage.local.get(['syncCursor', 'syncProgress', 'syncTimestamp']);
-        if (data.syncCursor) {
+        const data = await chrome.storage.local.get(['syncCursor', 'syncProgress', 'syncTimestamp', 'syncPhase', 'syncGraphqlCursor']);
+        if (data.syncCursor || data.syncGraphqlCursor) {
             return {
-                cursor: data.syncCursor,
+                cursor: data.syncCursor || null,
                 itemCount: data.syncProgress || 0,
-                timestamp: data.syncTimestamp
+                timestamp: data.syncTimestamp,
+                phase: data.syncPhase || 'rest',
+                graphqlCursor: data.syncGraphqlCursor || null
             };
         }
     } catch (e) {}
