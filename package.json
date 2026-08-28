@@ -1,6 +1,6 @@
 {
   "name": "unlockt-instagram-saved-vault",
-  "version": "6.8.0",
+  "version": "6.9.0",
   "description": "Unlockt — Open-source, 100% private, local-first Instagram saved posts, reels, carousels, and audio bulk extractor, smart media manager, and AI search vault. Developed by Mahmoud Madi | Powered by Premier Tech & VOXO AI.",
   "main": "server.js",
   "scripts": {
