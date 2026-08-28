@@ -392,15 +392,18 @@ async function startFullSync(resume = false, incremental = false) {
 
     // Reset cursor ONLY on explicit fresh sync
     if (!resume && !incremental) {
-        await chrome.storage.local.remove(['syncCursor', 'syncProgress', 'syncMode', 'syncGraphqlCursor']);
+        await chrome.storage.local.remove(['syncCursor', 'syncProgress', 'syncTimestamp']);
     }
 
     syncState = {
         isRunning: true,
+        isFinished: false,
         progress: 5,
         total: 0,
-        currentType: resume ? 'Resuming sync...' : 'Connecting to Instagram...',
-        error: null
+        currentType: resume ? 'Resuming sync...' : (incremental ? 'Checking for new saves...' : 'Connecting to Instagram...'),
+        error: null,
+        lastResult: null,
+        options: syncState.options || { downloadMedia: true }
     };
 
     try {
@@ -412,76 +415,51 @@ async function startFullSync(resume = false, incremental = false) {
         }
 
         const userId = loginStatus.userId;
-        let cursorData = null;
+        let resumeCursor = null;
 
+        // If resuming, get the saved cursor
         if (resume) {
-            cursorData = await getSyncCursor();
-            console.log('[RESUME] Loaded cursor data:', cursorData);
+            console.log('[RESUME] Attempting to load saved cursor...');
+            const cursorData = await getSyncCursor();
+            console.log('[RESUME] Got cursor data:', cursorData);
 
-            // If no explicit cursor was saved in storage, find the oldest item in VaultDB
-            if (!cursorData || (!cursorData.cursor && !cursorData.graphqlCursor)) {
-                try {
-                    const vaultPosts = await VaultDB.getAllPosts();
-                    if (vaultPosts && vaultPosts.length > 0) {
-                        // Find oldest post by date/timestamp
-                        const sortedPosts = vaultPosts.filter(p => p.postedAt || p.id).sort((a, b) => {
-                            const dateA = new Date(a.postedAt || 0).getTime();
-                            const dateB = new Date(b.postedAt || 0).getTime();
-                            return dateA - dateB;
-                        });
-                        const oldestPost = sortedPosts[0];
-                        if (oldestPost) {
-                            console.log('[RESUME] Found oldest vault post:', oldestPost.id, oldestPost.postedAt);
-                            cursorData = {
-                                cursor: oldestPost.id,
-                                mode: 'rest',
-                                graphqlCursor: null,
-                                itemCount: vaultPosts.length
-                            };
-                        }
-                    }
-                } catch (e) {
-                    console.log('[RESUME] Vault inspection note:', e.message);
-                }
+            if (cursorData && cursorData.cursor) {
+                resumeCursor = cursorData.cursor;
+                syncState.currentType = `Resuming from saved position (${cursorData.itemCount || 0} items)...`;
+                console.log('[RESUME] Will resume from cursor:', resumeCursor.substring(0, 50) + '...');
+            } else {
+                console.log('[RESUME] No saved cursor found, starting fresh sync...');
+                syncState.currentType = 'Starting sync...';
             }
         }
 
-        // 1. Fetch saved posts via REST API
-        syncState.currentType = resume ? 'Continuing fetch...' : (incremental ? 'Fetching new saves...' : 'Fetching saved posts...');
+        // 1. Fetch saved posts (all photos, carousels, video posts)
+        syncState.currentType = resume && resumeCursor ? 'Continuing fetch...' : (incremental ? 'Fetching new saves...' : 'Fetching saved posts...');
         syncState.progress = 15;
+        console.log('Fetching saved posts (batch mode)...');
 
-        const restCursor = (resume && cursorData && cursorData.mode === 'rest') ? cursorData.cursor : (resume ? cursorData?.cursor : null);
-        const restResult = await fetchSavedPosts(userId, restCursor, incremental, loginStatus);
+        const posts = await fetchSavedPosts(userId, resumeCursor, incremental, loginStatus);
 
         syncState.progress = 50;
 
         // 2. Fetch saved reels feed
-        if (!incremental) {
-            syncState.currentType = 'Checking reels feed...';
-            try {
-                await fetchSavedReels(userId, loginStatus);
-            } catch (e) {
-                console.log('Reels feed note:', e.message);
+        syncState.currentType = 'Checking for reels...';
+        try {
+            const reels = await fetchSavedReels(userId);
+            if (reels.length > 0) {
+                await sendToLocalServer(reels, loginStatus);
+                if (syncState.options.downloadMedia !== false) {
+                    cacheThumbnailsToServer(reels).catch(() => {});
+                }
             }
+            console.log('Fetched', reels.length, 'reels');
+        } catch (e) {
+            console.log('Could not fetch reels:', e.message);
         }
 
-        syncState.progress = 70;
+        syncState.progress = 75;
 
-        // 3. Deep History Scraper via GraphQL (Fetches older history from previous years)
-        if (!incremental) {
-            syncState.currentType = 'Fetching older historical saves (GraphQL)...';
-            console.log('[DEEP HISTORY] Running GraphQL historical fetch...');
-            const gqlCursor = (cursorData && cursorData.graphqlCursor) ? cursorData.graphqlCursor : null;
-            try {
-                await fetchSavedViaGraphQL(userId, gqlCursor, loginStatus);
-            } catch (e) {
-                console.log('GraphQL fetch note:', e.message);
-            }
-        }
-
-        syncState.progress = 85;
-
-        // 4. Fetch saved audio
+        // 3. Fetch saved audio
         syncState.currentType = 'Checking for audio...';
         try {
             const audio = await fetchSavedAudio(userId);
@@ -490,11 +468,11 @@ async function startFullSync(resume = false, incremental = false) {
             }
             console.log('Fetched', audio.length, 'audio tracks');
         } catch (e) {
-            console.log('Audio fetch note:', e.message);
+            console.log('Could not fetch audio:', e.message);
         }
 
         syncState.progress = 95;
-        syncState.currentType = 'Finalizing index...';
+        syncState.currentType = 'Sync complete!';
 
         // Read ACTUAL unique items directly from VaultDB to guarantee 100% matching numbers
         const finalVaultItems = await VaultDB.getAllPosts();
@@ -549,26 +527,30 @@ async function startFullSync(resume = false, incremental = false) {
 async function fetchSavedPosts(userId, resumeFromCursor = null, incremental = false, loginStatus = null) {
     const allItems = [];
     let maxId = resumeFromCursor;
-    let lastValidMaxId = resumeFromCursor;
     let hasMore = true;
     let attempts = 0;
-    const maxAttempts = 350;
+    const maxAttempts = 150;
+    const batchSize = 2; // Save progress every 2 pages
     let consecutiveDuplicates = 0;
     const duplicateThreshold = 5;
 
     let existingIds = new Set();
     if (incremental) {
         try {
+            syncState.currentType = 'Checking existing content...';
             const posts = await VaultDB.getAllPosts();
             if (Array.isArray(posts)) {
                 existingIds = new Set(posts.map(item => String(item.id)));
+                console.log(`[INCREMENTAL] Found ${existingIds.size} existing items in vault`);
             }
-        } catch (e) {}
+        } catch (e) {
+            console.log('[INCREMENTAL] Could not fetch existing IDs, will sync all:', e.message);
+        }
     }
 
     if (resumeFromCursor) {
         syncState.currentType = 'Resuming from last position...';
-        console.log('Resuming REST sync from cursor:', resumeFromCursor);
+        console.log('Resuming sync from cursor:', resumeFromCursor);
     }
 
     while (hasMore && attempts < maxAttempts) {
@@ -578,7 +560,7 @@ async function fetchSavedPosts(userId, resumeFromCursor = null, incremental = fa
                 url += `?max_id=${maxId}`;
             }
 
-            console.log(`Fetching page ${attempts + 1}: ${url}`);
+            console.log('Fetching page', attempts + 1, ':', url);
 
             const response = await fetch(url, {
                 headers: {
@@ -591,30 +573,40 @@ async function fetchSavedPosts(userId, resumeFromCursor = null, incremental = fa
             });
 
             if (!response.ok) {
-                console.log('REST API response not ok:', response.status);
-                hasMore = false;
-                break;
+                console.log('API response not ok:', response.status);
+                // Try GraphQL fallback if REST fails
+                try {
+                    const graphqlItems = await fetchSavedViaGraphQL(userId);
+                    return [...allItems, ...graphqlItems];
+                } catch (e) {
+                    return allItems;
+                }
             }
 
             const data = await response.json();
             const rawItems = data.items || [];
-            console.log(`Page ${attempts + 1}: Got ${rawItems.length} items (more_available: ${data.more_available}, next_max_id: ${data.next_max_id})`);
+            console.log('Got response with', rawItems.length, 'items');
 
             if (rawItems.length > 0) {
                 const processed = rawItems.map(item => processMediaItem(item));
 
                 if (incremental && existingIds.size > 0) {
                     const newItems = processed.filter(item => !existingIds.has(String(item.id)));
+                    const duplicateCount = processed.length - newItems.length;
+
                     if (newItems.length > 0) {
                         allItems.push(...newItems);
                         consecutiveDuplicates = 0;
                         await sendToLocalServer(newItems, loginStatus || { userId, username: 'User' });
+                        console.log(`[INCREMENTAL] Page ${attempts + 1}: ${newItems.length} new, ${duplicateCount} already synced`);
                     } else {
                         consecutiveDuplicates++;
+                        console.log(`[INCREMENTAL] Page ${attempts + 1}: All ${processed.length} items already synced (${consecutiveDuplicates}/${duplicateThreshold})`);
                     }
 
                     if (consecutiveDuplicates >= duplicateThreshold) {
-                        console.log(`[INCREMENTAL] Stopping - reached ${duplicateThreshold} consecutive duplicate pages`);
+                        console.log(`[INCREMENTAL] Stopping - reached ${duplicateThreshold} consecutive pages of duplicates`);
+                        syncState.currentType = `Found ${allItems.length} new items. Older content already synced.`;
                         hasMore = false;
                         break;
                     }
@@ -627,194 +619,51 @@ async function fetchSavedPosts(userId, resumeFromCursor = null, incremental = fa
                     }
                 }
 
-                // Query current vault count for real-time accurate UI progress
-                const curVault = await VaultDB.getAllPosts();
-                syncState.total = curVault.length;
-                syncState.progress = Math.min(50, 15 + Math.floor(attempts / 2));
+                syncState.total = allItems.length;
+                syncState.progress = Math.min(45, 15 + Math.floor(attempts / 3));
                 syncState.currentType = incremental
                     ? `Fetching posts... (${allItems.length} new, page ${attempts + 1})`
-                    : `Fetching posts... (${curVault.length} saved, page ${attempts + 1})`;
+                    : `Fetching posts... (${allItems.length} found, page ${attempts + 1})`;
             }
 
-            const nextMax = data.next_max_id || data.max_id || null;
-            if (nextMax) {
-                lastValidMaxId = nextMax;
-                maxId = nextMax;
-                // Persistent save on each page
-                await saveSyncCursor({
-                    cursor: lastValidMaxId,
-                    mode: 'rest',
-                    graphqlCursor: null,
-                    itemCount: allItems.length
-                });
-            }
-
-            hasMore = (data.more_available === true || (rawItems.length > 0 && !!nextMax));
+            hasMore = data.more_available === true && !!data.next_max_id;
+            maxId = data.next_max_id;
             attempts++;
 
+            // Save cursor checkpoint so we can resume
+            if (maxId) {
+                await saveSyncCursor(maxId, allItems.length);
+                console.log(`Saved progress: ${allItems.length} items, cursor: ${maxId}`);
+            }
+
             if (hasMore) {
-                await sleep(850);
+                await sleep(1000);
             }
 
         } catch (error) {
             console.error('Error fetching page:', error);
-            hasMore = false;
+            syncState.currentType = `Error on page ${attempts + 1}, stopping...`;
+            if (maxId) {
+                await saveSyncCursor(maxId, allItems.length);
+            }
             break;
         }
     }
 
-    // Always preserve cursor checkpoint for continue sync
-    const curVault = await VaultDB.getAllPosts();
-    await saveSyncCursor({
-        cursor: lastValidMaxId,
-        mode: hasMore ? 'rest' : 'graphql',
-        graphqlCursor: null,
-        itemCount: curVault.length
-    });
-
-    return { items: allItems, hasMore, nextMaxId: lastValidMaxId };
-}
-
-// Fetch saved reels
-async function fetchSavedReels(userId, loginStatus = null) {
-    let maxId = null;
-    let hasMore = true;
-    let attempts = 0;
-    const maxAttempts = 150;
-
-    while (hasMore && attempts < maxAttempts) {
-        try {
-            let url = 'https://www.instagram.com/api/v1/feed/saved/reels/';
-            if (maxId) url += `?max_id=${maxId}`;
-
-            const response = await fetch(url, {
-                headers: {
-                    'X-IG-App-ID': '936619743392459',
-                    'X-ASBD-ID': '129477',
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Accept': '*/*'
-                },
-                credentials: 'include'
-            });
-
-            if (!response.ok) break;
-            const data = await response.json();
-            const items = data.items || [];
-            if (items.length > 0) {
-                const processed = items.map(item => ({ ...processMediaItem(item), type: 'reel' }));
-                await sendToLocalServer(processed, loginStatus || { userId, username: 'User' });
-                if (syncState.options.downloadMedia !== false) {
-                    cacheThumbnailsToServer(processed).catch(() => {});
-                }
-            }
-
-            const nextMax = data.next_max_id || data.max_id || null;
-            hasMore = (data.more_available === true || (items.length > 0 && !!nextMax));
-            maxId = nextMax;
-            attempts++;
-            if (hasMore) await sleep(850);
-        } catch (e) {
-            break;
-        }
-    }
-}
-
-// Deep History Fetch via GraphQL API (fetches older saves from previous years)
-async function fetchSavedViaGraphQL(userId, resumeCursor = null, loginStatus = null) {
-    const allItems = [];
-    let cursor = resumeCursor;
-    let lastValidCursor = resumeCursor;
-    let hasMore = true;
-    let attempts = 0;
-    const maxAttempts = 250;
-
-    while (hasMore && attempts < maxAttempts) {
-        try {
-            const variables = {
-                id: String(userId),
-                first: 50
-            };
-            if (cursor) {
-                variables.after = cursor;
-            }
-
-            const queryHash = '2ce1d673055b99c320f5a4f1520f8aed';
-            const url = `https://www.instagram.com/graphql/query/?query_hash=${queryHash}&variables=${encodeURIComponent(JSON.stringify(variables))}`;
-
-            console.log('[GRAPHQL] Fetching historical page', attempts + 1, cursor ? `after: ${cursor.substring(0, 20)}...` : 'first page');
-
-            const response = await fetch(url, {
-                headers: {
-                    'X-IG-App-ID': '936619743392459',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                credentials: 'include'
-            });
-
-            if (!response.ok) {
-                console.log('[GRAPHQL] GraphQL response status:', response.status);
-                break;
-            }
-
-            const data = await response.json();
-            const savedMedia = data?.data?.user?.edge_saved_media;
-
-            if (savedMedia?.edges && savedMedia.edges.length > 0) {
-                const items = savedMedia.edges.map(edge => processGraphQLItem(edge.node));
-                allItems.push(...items);
-
-                // Save batch to VaultDB
-                await sendToLocalServer(items, loginStatus || { userId, username: 'User' });
-                if (syncState.options.downloadMedia !== false) {
-                    cacheThumbnailsToServer(items).catch(() => {});
-                }
-
-                hasMore = savedMedia.page_info?.has_next_page === true && !!savedMedia.page_info?.end_cursor;
-                const nextCursor = savedMedia.page_info?.end_cursor || null;
-
-                if (nextCursor) {
-                    lastValidCursor = nextCursor;
-                    cursor = nextCursor;
-                }
-
-                const curVault = await VaultDB.getAllPosts();
-                syncState.total = curVault.length;
-                syncState.progress = Math.min(85, 70 + Math.floor(attempts / 2));
-                syncState.currentType = `Fetching older history... (${curVault.length} saved, ${items.length} in batch)`;
-
-                if (lastValidCursor) {
-                    await saveSyncCursor({
-                        cursor: null,
-                        mode: 'graphql',
-                        graphqlCursor: lastValidCursor,
-                        itemCount: curVault.length
-                    });
-                }
-            } else {
-                hasMore = false;
-            }
-
-            attempts++;
-            if (hasMore) await sleep(1000);
-
-        } catch (error) {
-            console.error('[GRAPHQL] Error fetching older history:', error);
-            break;
-        }
+    // Save final cursor for future continuation if available
+    if (maxId) {
+        await saveSyncCursor(maxId, allItems.length);
     }
 
     return allItems;
 }
 
 // Save sync cursor for resumability
-async function saveSyncCursor(cursorData) {
-    if (!cursorData) return;
+async function saveSyncCursor(cursor, itemCount) {
     try {
         await chrome.storage.local.set({
-            syncCursor: cursorData.cursor || null,
-            syncMode: cursorData.mode || 'rest',
-            syncGraphqlCursor: cursorData.graphqlCursor || null,
-            syncProgress: cursorData.itemCount || 0,
+            syncCursor: cursor,
+            syncProgress: itemCount,
             syncTimestamp: Date.now()
         });
     } catch (e) {}
@@ -823,12 +672,10 @@ async function saveSyncCursor(cursorData) {
 // Get saved sync cursor
 async function getSyncCursor() {
     try {
-        const data = await chrome.storage.local.get(['syncCursor', 'syncMode', 'syncGraphqlCursor', 'syncProgress', 'syncTimestamp']);
-        if (data.syncCursor || data.syncGraphqlCursor) {
+        const data = await chrome.storage.local.get(['syncCursor', 'syncProgress', 'syncTimestamp']);
+        if (data.syncCursor) {
             return {
-                cursor: data.syncCursor || null,
-                mode: data.syncMode || (data.syncGraphqlCursor ? 'graphql' : 'rest'),
-                graphqlCursor: data.syncGraphqlCursor || null,
+                cursor: data.syncCursor,
                 itemCount: data.syncProgress || 0,
                 timestamp: data.syncTimestamp
             };
